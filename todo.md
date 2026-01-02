@@ -31,3 +31,6 @@
 - [ ] Add early career experiences (B&R Beurs Erasmus, SulAmérica)
 
 - [x] Adicionar texto em chinês ao artigo Tick Size para AudioPlayer trilíngue
+- [x] Corrigir voz Eleven Labs para português (fallback ocorrendo)
+- [x] Substituir imagens carregadas (Global South) por versões mais discretas
+- [x] Corrigir tradução chinês no corpo do artigo Tick Size
