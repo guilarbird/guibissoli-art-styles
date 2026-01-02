@@ -112,7 +112,8 @@ export default function About() {
             >
               <div className="space-y-6 text-lg leading-relaxed">
                 <p>
-                  I build financial infrastructure for emerging markets. Currently leading{' '}
+                  I build financial infrastructure for the <span className="text-primary">Global South</span>. 
+                  That's been my north star (pun intended) for years now. Currently leading{' '}
                   <a 
                     href="https://coins.xyz" 
                     target="_blank" 
@@ -121,22 +122,24 @@ export default function About() {
                   >
                     Coins.xyz
                   </a>{' '}
-                  in Brazil, where we're creating the bridge between traditional finance and crypto 
-                  for millions of users in the Global South.
+                  in Brazil, where we're building the rails that connect traditional finance to crypto 
+                  for millions of users who've been historically underserved.
                 </p>
                 
                 <p>
                   My work sits at the intersection of <span className="text-primary">technology</span>,{' '}
                   <span className="text-accent">finance</span>, and <span className="text-terminal-green">regulation</span>. 
-                  I believe that stablecoins and blockchain infrastructure will fundamentally reshape 
-                  how money moves across borders, especially for underserved markets.
+                  After participating in <span className="text-primary">50+ Web3 deals</span> across multiple market cycles, 
+                  I've learned that the best infrastructure is the one you don't notice—it just works.
                 </p>
                 
                 <p>
-                  Before Coins.xyz, I was <span className="text-primary">Head of Fiat at Binance</span> Brazil, 
-                  where I helped scale operations during the exchange's hyper-growth phase. I also worked 
-                  at <span className="text-primary">Old Fashion Research</span> (Asian multi-strategy blockchain fund), 
-                  BTG Pactual, and various tech startups.
+                  Fun fact: I've been working with essentially the same crew across{' '}
+                  <span className="text-primary">Binance</span> →{' '}
+                  <span className="text-primary">Old Fashion Research</span> →{' '}
+                  <span className="text-primary">Coins.xyz</span>. 
+                  When you find people who share your thesis on the Global South and don't mind your terrible jokes, 
+                  you stick together.
                 </p>
               </div>
             </motion.div>
@@ -159,29 +162,33 @@ export default function About() {
                     period: '2024 - Present',
                     role: 'Managing Partner',
                     company: 'Coins.xyz Brazil',
-                    description: 'Leading Brazil operations for crypto infrastructure platform. OTC, B2B, and retail.',
+                    description: 'Leading Brazil operations. Same team, new mission: crypto infrastructure for the Global South.',
                     link: 'https://coins.xyz',
+                    highlight: true,
                   },
                   {
                     period: '2021 - 2024',
                     role: 'Head of Fiat',
                     company: 'Binance',
-                    description: 'Scaled fiat operations during hyper-growth phase in Brazil.',
+                    description: 'Scaled fiat operations during the exchange\'s hyper-growth phase in Brazil. Wild times.',
                     link: 'https://binance.com',
+                    highlight: false,
                   },
                   {
                     period: '2021 - 2022',
                     role: 'Investment Team',
                     company: 'Old Fashion Research',
-                    description: 'Asian multi-strategy blockchain investment fund. Research on GameFi, DAOs, and infrastructure.',
+                    description: 'Asian multi-strategy blockchain fund. Research on GameFi, DAOs, and infrastructure. Same crew, different hats.',
                     link: 'https://paragraph.com/@old-fashion-research',
+                    highlight: false,
                   },
                   {
                     period: 'Prior',
                     role: 'Financial Sector',
-                    company: 'BTG Pactual & Others',
-                    description: 'Traditional finance and tech startups experience.',
+                    company: 'BTG Pactual',
+                    description: 'Traditional finance. Learned how the old system works before trying to improve it.',
                     link: null,
+                    highlight: false,
                   },
                 ].map((item) => (
                   <div 
