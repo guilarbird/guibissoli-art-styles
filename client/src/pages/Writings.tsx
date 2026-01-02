@@ -8,12 +8,14 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { Search, ExternalLink, Globe } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { articles, getAllTags, getArticlesByLanguage } from '@/data/articles';
 
 type LanguageFilter = 'all' | 'en' | 'pt';
 type CategoryFilter = 'all' | 'writing' | 'research' | 'media';
 
 export default function Writings() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<LanguageFilter>('all');
@@ -50,7 +52,7 @@ export default function Writings() {
             </div>
             
             <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">
-              Writings<span className="cursor-blink text-primary">_</span>
+              {t('writings.title')}<span className="cursor-blink text-primary">_</span>
             </h1>
             
             <p className="text-lg text-muted-foreground max-w-2xl">
@@ -194,7 +196,7 @@ export default function Writings() {
               <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="grep -i 'search articles...'"
+                placeholder={t('writings.search')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 bg-card border border-border rounded-lg font-mono text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
@@ -230,7 +232,7 @@ export default function Writings() {
                 className="text-center py-20"
               >
                 <p className="font-mono text-muted-foreground">
-                  <span className="text-primary">{'>'}</span> No articles found matching your query.
+                  <span className="text-primary">{'>'}</span> {t('writings.noResults')}
                 </p>
               </motion.div>
             ) : (

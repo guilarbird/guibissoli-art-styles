@@ -6,8 +6,11 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, MapPin, Briefcase, Mail, Twitter, Linkedin, Github, GraduationCap, Award } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function About() {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
       <Navigation />
@@ -27,7 +30,7 @@ export default function About() {
               </div>
               
               <h1 className="font-display text-4xl md:text-5xl font-bold mb-6">
-                About<span className="cursor-blink text-primary">_</span>
+                {t('about.title')}<span className="cursor-blink text-primary">_</span>
               </h1>
             </motion.div>
 
@@ -153,7 +156,7 @@ export default function About() {
             >
               <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
                 <span className="text-primary font-mono">{'>'}</span>
-                Experience
+                {t('about.experience')}
               </h3>
               
               <div className="space-y-4">
@@ -225,9 +228,8 @@ export default function About() {
               className="mb-12"
             >
               <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
-                <span className="text-primary font-mono">{'>'}</span>
                 <GraduationCap size={20} />
-                Education
+                {t('about.education')}
               </h3>
               
               <div className="space-y-4">
@@ -275,7 +277,7 @@ export default function About() {
             >
               <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
                 <span className="text-primary font-mono">{'>'}</span>
-                Current Focus
+                {t('about.focus')}
               </h3>
               
               <div className="grid gap-4">
@@ -325,7 +327,7 @@ export default function About() {
             >
               <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
                 <span className="text-primary font-mono">{'>'}</span>
-                Research Interests
+                {t('about.interests')}
               </h3>
               
               <div className="flex flex-wrap gap-2">

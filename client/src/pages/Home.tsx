@@ -1,6 +1,7 @@
 /**
  * Home Page - Terminal Aesthetic
  * Landing page with hero, featured writings, and newsletter CTA
+ * Bilingual support (EN/PT)
  */
 
 import { Link } from 'wouter';
@@ -8,9 +9,11 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import { getFeaturedArticles } from '@/data/articles';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Home() {
   const featuredArticles = getFeaturedArticles();
+  const { t, language } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
@@ -39,7 +42,7 @@ export default function Home() {
             {/* Terminal-style greeting */}
             <div className="flex items-center gap-2 mb-6">
               <span className="text-primary font-mono">{'>'}</span>
-              <span className="meta-mono">welcome to</span>
+              <span className="meta-mono">{t('home.welcome')}</span>
             </div>
             
             {/* Name */}
@@ -51,34 +54,20 @@ export default function Home() {
             
             {/* Tagline */}
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-              Building financial infrastructure for the{' '}
-              <span className="text-foreground">Global South</span>.
+              {t('home.tagline1')}{' '}
+              <span className="text-foreground">{t('home.tagline2')}</span>.
               <br />
-              Writing about <span className="text-primary">Web3</span>,{' '}
-              <span className="text-accent">stablecoins</span>, and the future of money.
+              {t('home.tagline3')} <span className="text-primary">Web3</span>,{' '}
+              <span className="text-accent">stablecoins</span>, {t('home.tagline4')}
             </p>
             
-            {/* Current role */}
-            <div className="flex flex-wrap items-center gap-4 mb-10">
-              <span className="meta-mono">currently:</span>
-              <a 
-                href="https://coins.xyz" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-1.5 bg-card border border-border rounded hover:border-primary transition-colors"
-              >
-                <span className="font-mono text-sm">Country Owner @ Coins.xyz 🇧🇷</span>
-                <ExternalLink size={14} className="text-muted-foreground" />
-              </a>
-            </div>
-            
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mt-10">
               <Link 
                 href="/writings"
                 className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded hover:bg-primary/90 transition-colors"
               >
-                <span>Read my writings</span>
+                <span>{t('home.cta.writings')}</span>
                 <ArrowRight size={18} />
               </Link>
               <Link 
@@ -103,7 +92,7 @@ export default function Home() {
             {/* Section header */}
             <div className="flex items-center gap-3 mb-10">
               <span className="text-primary font-mono">{'>'}</span>
-              <h2 className="font-display text-2xl font-semibold">Featured Writings</h2>
+              <h2 className="font-display text-2xl font-semibold">{t('home.featured')}</h2>
               <div className="flex-1 h-px bg-border ml-4" />
             </div>
             
@@ -120,7 +109,9 @@ export default function Home() {
                       <div className="flex items-center gap-3 mb-2">
                         <span className="meta-mono">{article.date}</span>
                         <span className="text-border">•</span>
-                        <span className="meta-mono">{article.readTime} read</span>
+                        <span className="meta-mono">{article.readTime} {t('common.read')}</span>
+                        <span className="text-border">•</span>
+                        <span className="meta-mono uppercase text-xs">{article.language}</span>
                       </div>
                       <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
                         {article.title}
@@ -145,7 +136,7 @@ export default function Home() {
                 href="/writings"
                 className="inline-flex items-center gap-2 text-primary hover:underline font-mono text-sm"
               >
-                <span>view all writings</span>
+                <span>{t('home.viewAll')}</span>
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -171,12 +162,12 @@ export default function Home() {
               </div>
               
               <h3 className="font-display text-2xl font-semibold mb-4">
-                Web3 + Stablecoins Brief
+                {t('home.newsletter.title')}
               </h3>
               <p className="text-muted-foreground mb-6">
-                Weekly insights on crypto infrastructure, stablecoins, and building for emerging markets.
+                {t('home.newsletter.desc')}
                 <br />
-                <span className="meta-mono">Published every week on LinkedIn.</span>
+                <span className="meta-mono">{t('home.newsletter.subdesc')}</span>
               </p>
               
               <a
@@ -185,7 +176,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded hover:bg-primary/90 transition-colors"
               >
-                <span>Subscribe on LinkedIn</span>
+                <span>{t('home.newsletter.cta')}</span>
                 <ExternalLink size={18} />
               </a>
             </div>
@@ -206,7 +197,7 @@ export default function Home() {
               <a href="https://twitter.com/guibissoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                 Twitter
               </a>
-              <a href="https://linkedin.com/in/guilhermebissoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              <a href="https://linkedin.com/in/guinicoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                 LinkedIn
               </a>
               <a href="https://github.com/guibissoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">

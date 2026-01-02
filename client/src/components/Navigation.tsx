@@ -1,22 +1,29 @@
 /**
  * Navigation Component - Terminal Aesthetic
  * Path-style navigation with subtle terminal references
+ * Bilingual support (EN/PT)
  */
 
 import { Link, useLocation } from 'wouter';
 import { useState } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const navItems = [
-  { path: '/', label: 'home' },
-  { path: '/writings', label: 'writings' },
-  { path: '/about', label: 'about' },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Navigation() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+
+  const navItems = [
+    { path: '/', label: t('nav.home') },
+    { path: '/writings', label: t('nav.writings') },
+    { path: '/about', label: t('nav.about') },
+  ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'pt' : 'en');
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -47,9 +54,14 @@ export default function Navigation() {
               </Link>
             ))}
             
-            {/* Language selector - globe icon only */}
-            <button className="p-2 text-muted-foreground hover:text-foreground transition-colors">
-              <Globe size={18} />
+            {/* Language selector */}
+            <button 
+              onClick={toggleLanguage}
+              className="flex items-center gap-1 px-2 py-1 text-sm font-mono text-muted-foreground hover:text-foreground transition-colors border border-border/50 rounded hover:border-primary"
+            >
+              <span className={language === 'en' ? 'text-primary' : ''}>EN</span>
+              <span className="text-border">/</span>
+              <span className={language === 'pt' ? 'text-primary' : ''}>PT</span>
             </button>
           </div>
 
@@ -87,6 +99,18 @@ export default function Navigation() {
                   {item.label}
                 </Link>
               ))}
+              
+              {/* Mobile Language selector */}
+              <div className="pt-4 border-t border-border">
+                <button 
+                  onClick={toggleLanguage}
+                  className="flex items-center gap-2 py-3 text-sm font-mono text-muted-foreground"
+                >
+                  <span className={language === 'en' ? 'text-primary' : ''}>English</span>
+                  <span className="text-border">|</span>
+                  <span className={language === 'pt' ? 'text-primary' : ''}>Português</span>
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
