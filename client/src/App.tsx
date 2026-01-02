@@ -11,8 +11,8 @@ import About from "./pages/About";
 import Article from "./pages/Article";
 import ArticleTickSize from "./pages/ArticleTickSize";
 import Collections from "./pages/Collections";
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
