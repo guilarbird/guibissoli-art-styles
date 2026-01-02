@@ -1,6 +1,9 @@
 /**
  * Articles Data - Complete Portfolio
- * Organized by language and category
+ * Categories:
+ * - 'article': Written by Guilherme (original content)
+ * - 'research': Academic/research publications
+ * - 'media': Press mentions and interviews (not written by Guilherme)
  */
 
 export interface Article {
@@ -11,17 +14,20 @@ export interface Article {
   readTime: string;
   tags: string[];
   language: 'en' | 'pt';
-  category: 'writing' | 'research' | 'media';
+  category: 'article' | 'research' | 'media';
   featured?: boolean;
   url: string;
   publication?: string;
   views?: number;
+  heroImage?: string;
 }
 
 export const articles: Article[] = [
   // ==========================================
-  // CANONICAL ARTICLES (hosted on site)
+  // ARTICLES - Written by Guilherme
   // ==========================================
+  
+  // Canonical (hosted on site)
   {
     slug: 'tick-size-microestrutura',
     title: 'Tick Size, Microestrutura e Liquidez Funcional',
@@ -30,16 +36,13 @@ export const articles: Article[] = [
     readTime: '15 min',
     tags: ['microestrutura', 'stablecoins', 'tick-size', 'otc', 'regulação'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     featured: true,
     url: '/writings/tick-size-microestrutura',
-    publication: 'gui.dev'
+    publication: 'gui.dev',
+    heroImage: '/images/article-tick-size-hero.png'
   },
 
-  // ==========================================
-  // PORTUGUESE ARTICLES
-  // ==========================================
-  
   // Exame Future of Money
   {
     slug: 'stablecoins-vasps-sistema-financeiro',
@@ -49,10 +52,11 @@ export const articles: Article[] = [
     readTime: '8 min',
     tags: ['stablecoins', 'vasps', 'banco-central', 'regulação'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     featured: true,
     url: 'https://exame.com/future-of-money/stablecoins-e-vasps-na-integracao-ao-sistema-financeiro-brasileiro/',
-    publication: 'Exame Future of Money'
+    publication: 'Exame Future of Money',
+    heroImage: '/images/article-crypto-regulation-hero.png'
   },
   
   // LinkedIn Newsletter - Web3 + Stablecoins Brief
@@ -64,7 +68,7 @@ export const articles: Article[] = [
     readTime: '7 min',
     tags: ['web3', 'careers', 'digital-economy'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     url: 'https://pt.linkedin.com/pulse/web3-o-novo-curr%C3%ADculo-do-profissional-digital-guilherme-bissoli-zwj1e',
     publication: 'LinkedIn Newsletter'
   },
@@ -76,7 +80,7 @@ export const articles: Article[] = [
     readTime: '8 min',
     tags: ['pix', 'blockchain', 'fintech', 'brazil'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     url: 'https://www.linkedin.com/pulse/pix-blockchain-duas-infraestruturas-que-est%C3%A3o-redesenhando-bissoli',
     publication: 'LinkedIn Newsletter'
   },
@@ -88,10 +92,11 @@ export const articles: Article[] = [
     readTime: '10 min',
     tags: ['stablecoins', 'payments', 'global-finance'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     featured: true,
     url: 'https://www.linkedin.com/pulse/o-que-vem-depois-da-revolu%C3%A7%C3%A3o-das-stablecoins-e-como-bissoli',
-    publication: 'LinkedIn Newsletter'
+    publication: 'LinkedIn Newsletter',
+    heroImage: '/images/article-stablecoins-hero.png'
   },
   {
     slug: 'stablecoins-transformando-cambio-internacional',
@@ -101,7 +106,7 @@ export const articles: Article[] = [
     readTime: '6 min',
     tags: ['stablecoins', 'fx', 'remittances'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     url: 'https://www.linkedin.com/pulse/como-stablecoins-est%C3%A3o-transformando-o-mercado-de-c%C3%A2mbio-bissoli',
     publication: 'LinkedIn Newsletter'
   },
@@ -113,7 +118,7 @@ export const articles: Article[] = [
     readTime: '5 min',
     tags: ['coins-xyz', 'global-south', 'africa', 'brazil'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     url: 'https://www.linkedin.com/pulse/coinsxyz-brasil-nig%C3%A9ria-e-o-sul-global-em-movimento-guilherme-bissoli',
     publication: 'LinkedIn Newsletter'
   },
@@ -125,7 +130,7 @@ export const articles: Article[] = [
     readTime: '9 min',
     tags: ['coins-xyz', 'regulation', 'scaling', 'emerging-markets'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     url: 'https://www.linkedin.com/pulse/da-filipinas-ao-brasil-como-estamos-escalando-um-exchange-bissoli',
     publication: 'LinkedIn Newsletter'
   },
@@ -137,7 +142,7 @@ export const articles: Article[] = [
     readTime: '8 min',
     tags: ['stablecoins', 'global-south', 'financial-inclusion'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     url: 'https://www.linkedin.com/pulse/o-futuro-das-stablecoins-e-o-sul-global-redefinindo-fluxo-bissoli',
     publication: 'LinkedIn Newsletter'
   },
@@ -149,29 +154,11 @@ export const articles: Article[] = [
     readTime: '12 min',
     tags: ['coins-xyz', 'startup', 'lessons-learned', 'brazil'],
     language: 'pt',
-    category: 'writing',
+    category: 'article',
     featured: true,
     url: 'https://www.linkedin.com/pulse/construindo-coinsxyz-li%C3%A7%C3%B5es-desafios-e-nossa-vis%C3%A3o-para-bissoli',
     publication: 'LinkedIn Newsletter'
   },
-  
-  // Portuguese Media
-  {
-    slug: 'valor-economico-bitcoin-2025',
-    title: 'Do "efeito-Trump" à aversão a risco: por que 2025 frustrou as apostas no Bitcoin',
-    excerpt: '"Saímos do modo experimento e entramos no modo infraestrutura de sistema financeiro."',
-    date: '2025.12.31',
-    readTime: '2 min',
-    tags: ['bitcoin', 'market-analysis', 'interview'],
-    language: 'pt',
-    category: 'media',
-    url: 'https://valor.globo.com/financas/criptomoedas/noticia/2025/12/31/do-efeito-trump-a-aversao-a-risco-por-que-2025-frustrou-as-apostas-no-bitcoin.ghtml',
-    publication: 'Valor Econômico'
-  },
-  
-  // ==========================================
-  // ENGLISH ARTICLES
-  // ==========================================
   
   // Hackernoon - Cybersecurity (2019)
   {
@@ -182,7 +169,7 @@ export const articles: Article[] = [
     readTime: '4 min',
     tags: ['cybersecurity', 'kali-linux', 'penetration-testing', 'wifi'],
     language: 'en',
-    category: 'writing',
+    category: 'article',
     featured: true,
     url: 'https://hackernoon.com/u/guiguibashow',
     publication: 'Hackernoon',
@@ -196,7 +183,7 @@ export const articles: Article[] = [
     readTime: '6 min',
     tags: ['kali-linux', 'virtual-machine', 'tutorial', 'cybersecurity'],
     language: 'en',
-    category: 'writing',
+    category: 'article',
     url: 'https://hackernoon.com/u/guiguibashow',
     publication: 'Hackernoon',
     views: 3243
@@ -209,7 +196,7 @@ export const articles: Article[] = [
     readTime: '3 min',
     tags: ['wifi', 'security', 'networking', 'kali'],
     language: 'en',
-    category: 'writing',
+    category: 'article',
     url: 'https://hackernoon.com/u/guiguibashow',
     publication: 'Hackernoon',
     views: 2619
@@ -222,11 +209,15 @@ export const articles: Article[] = [
     readTime: '3 min',
     tags: ['virtualbox', 'macos', 'tutorial', 'virtualization'],
     language: 'en',
-    category: 'writing',
+    category: 'article',
     url: 'https://hackernoon.com/u/guiguibashow',
     publication: 'Hackernoon',
     views: 499
   },
+
+  // ==========================================
+  // RESEARCH - Academic & Research Publications
+  // ==========================================
   
   // Old Fashion Research (2022)
   {
@@ -303,8 +294,22 @@ export const articles: Article[] = [
     url: 'http://hdl.handle.net/2105/22123',
     publication: 'Erasmus University Rotterdam'
   },
-  
-  // English Media
+
+  // ==========================================
+  // MEDIA - Press mentions & interviews (not written by Guilherme)
+  // ==========================================
+  {
+    slug: 'valor-economico-bitcoin-2025',
+    title: 'Do "efeito-Trump" à aversão a risco: por que 2025 frustrou as apostas no Bitcoin',
+    excerpt: '"Saímos do modo experimento e entramos no modo infraestrutura de sistema financeiro."',
+    date: '2025.12.31',
+    readTime: '2 min',
+    tags: ['bitcoin', 'market-analysis', 'interview'],
+    language: 'pt',
+    category: 'media',
+    url: 'https://valor.globo.com/financas/criptomoedas/noticia/2025/12/31/do-efeito-trump-a-aversao-a-risco-por-que-2025-frustrou-as-apostas-no-bitcoin.ghtml',
+    publication: 'Valor Econômico'
+  },
   {
     slug: 'coinsxyz-launches-brazil',
     title: 'Coins.xyz Launches in Brazil, Offers Game-Changing Solution for Foreign Businesses',
@@ -324,4 +329,7 @@ export const getFeaturedArticles = () => articles.filter(a => a.featured);
 export const getArticleBySlug = (slug: string) => articles.find(a => a.slug === slug);
 export const getAllTags = () => Array.from(new Set(articles.flatMap(a => a.tags))).sort();
 export const getArticlesByLanguage = (lang: 'en' | 'pt') => articles.filter(a => a.language === lang);
-export const getArticlesByCategory = (cat: 'writing' | 'research' | 'media') => articles.filter(a => a.category === cat);
+export const getArticlesByCategory = (cat: 'article' | 'research' | 'media') => articles.filter(a => a.category === cat);
+export const getMyArticles = () => articles.filter(a => a.category === 'article');
+export const getMediaMentions = () => articles.filter(a => a.category === 'media');
+export const getResearchPapers = () => articles.filter(a => a.category === 'research');

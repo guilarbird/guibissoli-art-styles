@@ -1,18 +1,18 @@
 /**
  * Writings Page - Terminal Aesthetic
- * List of all articles with language and category filtering
+ * Reorganized: Articles (by me) | Research | Media (mentions)
  */
 
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import { Search, ExternalLink, Globe } from 'lucide-react';
+import { Search, ExternalLink, Globe, Pen, FlaskConical, Newspaper } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { articles, getAllTags, getArticlesByLanguage } from '@/data/articles';
+import { articles, getAllTags, getArticlesByLanguage, getMyArticles, getMediaMentions, getResearchPapers } from '@/data/articles';
 
 type LanguageFilter = 'all' | 'en' | 'pt';
-type CategoryFilter = 'all' | 'writing' | 'research' | 'media';
+type CategoryFilter = 'all' | 'article' | 'research' | 'media';
 
 export default function Writings() {
   const { t } = useLanguage();
@@ -33,6 +33,11 @@ export default function Writings() {
 
   const ptCount = getArticlesByLanguage('pt').length;
   const enCount = getArticlesByLanguage('en').length;
+  const articlesCount = getMyArticles().length;
+  const researchCount = getResearchPapers().length;
+  const mediaCount = getMediaMentions().length;
+
+  const isExternalUrl = (url: string) => url.startsWith('http');
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
@@ -56,143 +61,126 @@ export default function Writings() {
             </h1>
             
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Thoughts on Web3, stablecoins, financial infrastructure, cybersecurity, and building for emerging markets.
-              Published across{' '}
-              <a 
-                href="https://www.linkedin.com/newsletters/web3-stablecoins-brief-6948081875227717632"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                LinkedIn
-              </a>,{' '}
-              <a 
-                href="https://hackernoon.com/u/guiguibashow"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Hackernoon
-              </a>,{' '}
-              <a 
-                href="https://exame.com/future-of-money/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Exame
-              </a>, and more.
+              Thoughts on Web3, stablecoins, financial infrastructure, and building for the Global South.
             </p>
+          </motion.div>
+
+          {/* Category Toggle - Primary Filter */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.05 }}
+            className="mb-8"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <button
+                onClick={() => setCategoryFilter('all')}
+                className={`p-4 rounded-xl border transition-all ${
+                  categoryFilter === 'all' 
+                    ? 'bg-primary/10 border-primary text-primary' 
+                    : 'border-border hover:border-primary/50 bg-card/50'
+                }`}
+              >
+                <div className="text-2xl font-bold">{articles.length}</div>
+                <div className="text-sm font-mono opacity-70">all</div>
+              </button>
+              <button
+                onClick={() => setCategoryFilter('article')}
+                className={`p-4 rounded-xl border transition-all ${
+                  categoryFilter === 'article' 
+                    ? 'bg-primary/10 border-primary text-primary' 
+                    : 'border-border hover:border-primary/50 bg-card/50'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Pen size={18} />
+                  <span className="text-2xl font-bold">{articlesCount}</span>
+                </div>
+                <div className="text-sm font-mono opacity-70">articles</div>
+              </button>
+              <button
+                onClick={() => setCategoryFilter('research')}
+                className={`p-4 rounded-xl border transition-all ${
+                  categoryFilter === 'research' 
+                    ? 'bg-primary/10 border-primary text-primary' 
+                    : 'border-border hover:border-primary/50 bg-card/50'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <FlaskConical size={18} />
+                  <span className="text-2xl font-bold">{researchCount}</span>
+                </div>
+                <div className="text-sm font-mono opacity-70">research</div>
+              </button>
+              <button
+                onClick={() => setCategoryFilter('media')}
+                className={`p-4 rounded-xl border transition-all ${
+                  categoryFilter === 'media' 
+                    ? 'bg-primary/10 border-primary text-primary' 
+                    : 'border-border hover:border-primary/50 bg-card/50'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Newspaper size={18} />
+                  <span className="text-2xl font-bold">{mediaCount}</span>
+                </div>
+                <div className="text-sm font-mono opacity-70">media</div>
+              </button>
+            </div>
           </motion.div>
 
           {/* Language Toggle */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.05 }}
-            className="mb-6"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <Globe size={16} className="text-muted-foreground" />
-              <span className="text-sm text-muted-foreground font-mono">language:</span>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setLanguageFilter('all')}
-                className={`px-4 py-2 rounded-lg font-mono text-sm border transition-all ${
-                  languageFilter === 'all' 
-                    ? 'bg-primary/20 text-primary border-primary' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                all ({articles.length})
-              </button>
-              <button
-                onClick={() => setLanguageFilter('pt')}
-                className={`px-4 py-2 rounded-lg font-mono text-sm border transition-all ${
-                  languageFilter === 'pt' 
-                    ? 'bg-primary/20 text-primary border-primary' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                🇧🇷 português ({ptCount})
-              </button>
-              <button
-                onClick={() => setLanguageFilter('en')}
-                className={`px-4 py-2 rounded-lg font-mono text-sm border transition-all ${
-                  languageFilter === 'en' 
-                    ? 'bg-primary/20 text-primary border-primary' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                🇺🇸 english ({enCount})
-              </button>
-            </div>
-          </motion.div>
-
-          {/* Category Toggle */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
             transition={{ delay: 0.08 }}
             className="mb-6"
           >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-sm text-muted-foreground font-mono">category:</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setCategoryFilter('all')}
-                className={`px-4 py-2 rounded-lg font-mono text-sm border transition-all ${
-                  categoryFilter === 'all' 
-                    ? 'bg-primary/20 text-primary border-primary' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                all
-              </button>
-              <button
-                onClick={() => setCategoryFilter('writing')}
-                className={`px-4 py-2 rounded-lg font-mono text-sm border transition-all ${
-                  categoryFilter === 'writing' 
-                    ? 'bg-primary/20 text-primary border-primary' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                ✍️ writing
-              </button>
-              <button
-                onClick={() => setCategoryFilter('research')}
-                className={`px-4 py-2 rounded-lg font-mono text-sm border transition-all ${
-                  categoryFilter === 'research' 
-                    ? 'bg-primary/20 text-primary border-primary' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                🔬 research
-              </button>
-              <button
-                onClick={() => setCategoryFilter('media')}
-                className={`px-4 py-2 rounded-lg font-mono text-sm border transition-all ${
-                  categoryFilter === 'media' 
-                    ? 'bg-primary/20 text-primary border-primary' 
-                    : 'border-border hover:border-primary/50'
-                }`}
-              >
-                📰 media
-              </button>
+            <div className="flex items-center gap-4">
+              <Globe size={16} className="text-muted-foreground" />
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setLanguageFilter('all')}
+                  className={`px-3 py-1.5 rounded-lg font-mono text-xs border transition-all ${
+                    languageFilter === 'all' 
+                      ? 'bg-primary/20 text-primary border-primary' 
+                      : 'border-border hover:border-primary/50'
+                  }`}
+                >
+                  all
+                </button>
+                <button
+                  onClick={() => setLanguageFilter('pt')}
+                  className={`px-3 py-1.5 rounded-lg font-mono text-xs border transition-all ${
+                    languageFilter === 'pt' 
+                      ? 'bg-primary/20 text-primary border-primary' 
+                      : 'border-border hover:border-primary/50'
+                  }`}
+                >
+                  🇧🇷 PT ({ptCount})
+                </button>
+                <button
+                  onClick={() => setLanguageFilter('en')}
+                  className={`px-3 py-1.5 rounded-lg font-mono text-xs border transition-all ${
+                    languageFilter === 'en' 
+                      ? 'bg-primary/20 text-primary border-primary' 
+                      : 'border-border hover:border-primary/50'
+                  }`}
+                >
+                  🇺🇸 EN ({enCount})
+                </button>
+              </div>
             </div>
           </motion.div>
 
-          {/* Search and Tags Filter */}
+          {/* Search */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="mb-10"
+            className="mb-8"
           >
-            {/* Search */}
-            <div className="relative mb-6">
+            <div className="relative">
               <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
@@ -202,8 +190,15 @@ export default function Writings() {
                 className="w-full pl-12 pr-4 py-3 bg-card border border-border rounded-lg font-mono text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
               />
             </div>
-            
-            {/* Tags */}
+          </motion.div>
+
+          {/* Tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.12 }}
+            className="mb-10"
+          >
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedTag(null)}
@@ -211,7 +206,7 @@ export default function Writings() {
               >
                 all tags
               </button>
-              {allTags.slice(0, 15).map((tag) => (
+              {allTags.slice(0, 12).map((tag) => (
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
@@ -223,8 +218,8 @@ export default function Writings() {
             </div>
           </motion.div>
 
-          {/* Articles List */}
-          <div className="space-y-2">
+          {/* Articles Grid */}
+          <div className="space-y-4">
             {filteredArticles.length === 0 ? (
               <motion.div
                 initial={{ opacity: 0 }}
@@ -236,96 +231,121 @@ export default function Writings() {
                 </p>
               </motion.div>
             ) : (
-              filteredArticles.map((article, index) => (
-                <motion.div
-                  key={article.slug}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.03 }}
-                >
-                  <Link
-                    href={`/writings/${article.slug}`}
-                    className="block article-card py-6 group"
+              filteredArticles.map((article, index) => {
+                const isExternal = isExternalUrl(article.url);
+                const CardWrapper = isExternal ? 'a' : Link;
+                const cardProps = isExternal 
+                  ? { href: article.url, target: '_blank', rel: 'noopener noreferrer' }
+                  : { href: article.url };
+                
+                return (
+                  <motion.div
+                    key={article.slug}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.03 }}
                   >
-                    <div className="flex flex-col lg:flex-row lg:items-start gap-4">
-                      {/* Date & Language column */}
-                      <div className="lg:w-36 flex-shrink-0 flex items-center gap-2">
-                        <span className="meta-mono">{article.date}</span>
-                        <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                          {article.language === 'pt' ? '🇧🇷' : '🇺🇸'}
-                        </span>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          {article.publication && (
-                            <span className="text-xs font-mono text-primary/70">{article.publication}</span>
+                    <CardWrapper
+                      {...cardProps}
+                      className="block group"
+                    >
+                      <div className={`p-6 rounded-xl border transition-all hover:border-primary/50 ${
+                        article.heroImage ? 'bg-card' : 'bg-card/50'
+                      }`}>
+                        <div className="flex flex-col md:flex-row gap-6">
+                          {/* Hero Image (if available) */}
+                          {article.heroImage && (
+                            <div className="md:w-48 h-32 md:h-auto flex-shrink-0 rounded-lg overflow-hidden">
+                              <img 
+                                src={article.heroImage} 
+                                alt={article.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                            </div>
                           )}
-                          {article.views && (
-                            <span className="text-xs font-mono text-muted-foreground">• {article.views.toLocaleString()} views</span>
-                          )}
-                        </div>
-                        <h2 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                          {article.title}
-                        </h2>
-                        <p className="text-muted-foreground mb-3 line-clamp-2">
-                          {article.excerpt}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="meta-mono">{article.readTime} read</span>
-                          <span className="text-border">•</span>
-                          {article.tags.slice(0, 3).map((tag) => (
-                            <span key={tag} className="tag">#{tag}</span>
-                          ))}
+                          
+                          {/* Content */}
+                          <div className="flex-1 min-w-0">
+                            {/* Meta row */}
+                            <div className="flex items-center gap-3 mb-2 flex-wrap">
+                              <span className="meta-mono text-xs">{article.date}</span>
+                              <span className="text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                                {article.language === 'pt' ? '🇧🇷' : '🇺🇸'}
+                              </span>
+                              {article.publication && (
+                                <span className="text-xs font-mono text-primary/70">{article.publication}</span>
+                              )}
+                              {article.category === 'media' && (
+                                <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 font-mono">
+                                  media mention
+                                </span>
+                              )}
+                              {isExternal && (
+                                <ExternalLink size={12} className="text-muted-foreground" />
+                              )}
+                            </div>
+                            
+                            {/* Title */}
+                            <h2 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                              {article.title}
+                            </h2>
+                            
+                            {/* Excerpt */}
+                            <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                              {article.excerpt}
+                            </p>
+                            
+                            {/* Tags & Read time */}
+                            <div className="flex items-center gap-4">
+                              <span className="text-xs font-mono text-muted-foreground">
+                                {article.readTime}
+                              </span>
+                              {article.views && (
+                                <span className="text-xs font-mono text-muted-foreground">
+                                  {article.views.toLocaleString()} views
+                                </span>
+                              )}
+                              <div className="flex gap-1.5 flex-wrap">
+                                {article.tags.slice(0, 3).map((tag) => (
+                                  <span key={tag} className="text-xs font-mono text-primary/60">
+                                    #{tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      
-                      {/* External link indicator - only show for external URLs */}
-                      {article.url && !article.url.startsWith('/') && (
-                        <div className="lg:w-8 flex-shrink-0 text-muted-foreground group-hover:text-primary transition-colors">
-                          <ExternalLink size={18} />
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                </motion.div>
-              ))
+                    </CardWrapper>
+                  </motion.div>
+                );
+              })
             )}
           </div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="mt-16 pt-8 border-t border-border"
-          >
-            <div className="flex flex-wrap gap-8 text-sm">
-              <div>
-                <span className="text-muted-foreground">total articles:</span>
-                <span className="ml-2 font-mono text-primary">{articles.length}</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground">português:</span>
-                <span className="ml-2 font-mono text-primary">{ptCount}</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground">english:</span>
-                <span className="ml-2 font-mono text-primary">{enCount}</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground">topics:</span>
-                <span className="ml-2 font-mono text-primary">{allTags.length}</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground">showing:</span>
-                <span className="ml-2 font-mono text-primary">{filteredArticles.length}</span>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-border py-8">
+        <div className="container">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="meta-mono text-muted-foreground">
+              © {new Date().getFullYear()} gui.dev
+            </p>
+            <div className="flex items-center gap-6">
+              <a href="https://twitter.com/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                Twitter
+              </a>
+              <a href="https://linkedin.com/in/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                LinkedIn
+              </a>
+              <a href="https://github.com/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
