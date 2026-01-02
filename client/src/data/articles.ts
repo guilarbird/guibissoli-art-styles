@@ -20,6 +20,23 @@ export interface Article {
 
 export const articles: Article[] = [
   // ==========================================
+  // CANONICAL ARTICLES (hosted on site)
+  // ==========================================
+  {
+    slug: 'tick-size-microestrutura',
+    title: 'Tick Size, Microestrutura e Liquidez Funcional',
+    excerpt: 'Como ajustes aparentemente técnicos redefinem o papel do mercado spot em stablecoins. Uma análise de microestrutura de mercado para reguladores, investidores e policy makers.',
+    date: '2026.01.02',
+    readTime: '15 min',
+    tags: ['microestrutura', 'stablecoins', 'tick-size', 'otc', 'regulação'],
+    language: 'pt',
+    category: 'writing',
+    featured: true,
+    url: '/writings/tick-size-microestrutura',
+    publication: 'gui.dev'
+  },
+
+  // ==========================================
   // PORTUGUESE ARTICLES
   // ==========================================
   

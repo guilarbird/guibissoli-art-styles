@@ -9,12 +9,14 @@ import Home from "./pages/Home";
 import Writings from "./pages/Writings";
 import About from "./pages/About";
 import Article from "./pages/Article";
+import ArticleTickSize from "./pages/ArticleTickSize";
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/writings"} component={Writings} />
+      <Route path={"/writings/tick-size-microestrutura"} component={ArticleTickSize} />
       <Route path={"/writings/:slug"} component={Article} />
       <Route path={"/about"} component={About} />
       <Route path={"/404"} component={NotFound} />

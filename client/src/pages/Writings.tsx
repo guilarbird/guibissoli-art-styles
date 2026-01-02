@@ -281,8 +281,8 @@ export default function Writings() {
                         </div>
                       </div>
                       
-                      {/* External link indicator */}
-                      {article.url && (
+                      {/* External link indicator - only show for external URLs */}
+                      {article.url && !article.url.startsWith('/') && (
                         <div className="lg:w-8 flex-shrink-0 text-muted-foreground group-hover:text-primary transition-colors">
                           <ExternalLink size={18} />
                         </div>
