@@ -505,7 +505,7 @@ export default function ArticleTickSize() {
                 }
               </p>
               <div className="flex gap-3">
-                <a href="https://twitter.com/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://x.com/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <Twitter size={18} />
                 </a>
                 <a href="https://linkedin.com/in/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">

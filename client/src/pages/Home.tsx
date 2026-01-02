@@ -219,13 +219,13 @@ export default function Home() {
             </div>
             
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <a href="https://twitter.com/guibissoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              <a href="https://x.com/guinicoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                 Twitter
               </a>
               <a href="https://linkedin.com/in/guinicoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                 LinkedIn
               </a>
-              <a href="https://github.com/guibissoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              <a href="https://github.com/guinicoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                 GitHub
               </a>
             </div>

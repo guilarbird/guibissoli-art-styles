@@ -69,7 +69,7 @@ export default function About() {
                 {/* Social Links */}
                 <div className="flex items-center gap-4 pt-2">
                   <a 
-                    href="https://twitter.com/guinicoli" 
+                    href="https://x.com/guinicoli" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-2 text-muted-foreground hover:text-primary transition-colors"
@@ -408,7 +408,7 @@ export default function About() {
                   <span>Email me</span>
                 </a>
                 <a
-                  href="https://twitter.com/guinicoli"
+                  href="https://x.com/guinicoli"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 border border-border text-foreground font-medium rounded hover:bg-card transition-colors"

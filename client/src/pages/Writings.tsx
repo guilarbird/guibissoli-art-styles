@@ -333,7 +333,7 @@ export default function Writings() {
               © {new Date().getFullYear()} gui.dev
             </p>
             <div className="flex items-center gap-6">
-              <a href="https://twitter.com/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://x.com/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 Twitter
               </a>
               <a href="https://linkedin.com/in/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
