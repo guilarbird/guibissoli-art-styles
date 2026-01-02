@@ -19,6 +19,7 @@ export default function Navigation() {
     { path: '/', label: t('nav.home') },
     { path: '/writings', label: t('nav.writings') },
     { path: '/about', label: t('nav.about') },
+    { path: '/collections', label: t('nav.collections') },
   ];
 
   const toggleLanguage = () => {
