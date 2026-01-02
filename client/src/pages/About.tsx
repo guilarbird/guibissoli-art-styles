@@ -42,7 +42,7 @@ export default function About() {
               <div className="flex-shrink-0">
                 <div className="w-32 h-32 rounded-lg overflow-hidden border-2 border-border">
                   <img 
-                    src="/images/guilherme-avatar.jpg" 
+                    src="/images/ai_host_avatar.png" 
                     alt="Guilherme Bissoli"
                     className="w-full h-full object-cover"
                   />

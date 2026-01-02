@@ -133,7 +133,7 @@ export default function Article() {
             >
               <div className="flex items-center gap-4">
                 <img 
-                  src="/images/guilherme-avatar.jpg" 
+                  src="/images/ai_host_avatar.png" 
                   alt="Guilherme Bissoli"
                   className="w-16 h-16 rounded-lg object-cover"
                 />
