@@ -29,3 +29,5 @@
 - [ ] Add more hero images for key articles
 - [ ] Integrate TON/Telegram wallet collections
 - [ ] Add early career experiences (B&R Beurs Erasmus, SulAmérica)
+
+- [x] Adicionar texto em chinês ao artigo Tick Size para AudioPlayer trilíngue

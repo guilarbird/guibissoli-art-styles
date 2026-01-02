@@ -54,6 +54,50 @@ Conclusao.
 À medida que o mercado brasileiro discute stablecoins, OTC e sandbox, o próximo passo natural é voltar ao fundamento. Se 2026 marcar a consolidação do FX digital no Brasil, a microestrutura não será detalhe — será pré-condição.
 `;
 
+const articleTextZh = `
+Tick Size、市场微观结构与功能性流动性。
+
+执行摘要。
+
+最近关于稳定币、场外交易和巴西监管沙盒的讨论在法律层面迅速推进。然而，有一个不太明显的结构性变量——tick size——它是现货市场效率的主要决定因素。本文认为，微观结构的精细调整，特别是最小价格变动幅度，可以内生性地降低价差，增加订单簿的功能性深度，并减少对场外交易渠道的结构性依赖。
+
+第一节：为什么微观结构重新成为辩论的中心。
+
+成熟的金融市场很少通过永久性例外来解决流动性问题。历史上，路径一直是不同的：仔细校准交易机制。价格时间优先、取消规则，尤其是tick size等参数一直被视为经济治理的核心工具。
+
+第二节：Tick size：具有宏观经济效应的技术细节。
+
+Tick size定义了连续订单簿中允许的最小价格增量。虽然它看起来像是一个操作细节，但它实际上是竞争的结构性限制器。当tick太大时，价差不再反映风险或信息，而只反映允许的网格。当tick过小时，市场进入微噪声状态。
+
+第三节：订单簿的形状比订单簿的顶部更重要。
+
+表面的流动性评估通常集中在最佳买卖价。对于机构流量来说，这是不够的。重要的是订单簿的完整几何形状。对于外汇和支付，可预测性优于即时价格。
+
+第四节：场外交易作为结构性失败的症状。
+
+当连续市场在三个维度同时失败时，场外交易就会出现：价格、规模和可预测性。场外交易不创造流动性。它只是将成本和风险重新分配到有组织的市场之外。
+
+第五节：实证证据：USDT/BRL的制度变化。
+
+在最近调整USDT/BRL的tick size后，观察到结构性价差压缩、有用流动性整合、累积滑点减少以及更大的日内稳定性。
+
+第六节：Tick size作为治理工具。
+
+传统交易所一直将tick size视为市场治理工具。随着稳定币接近外汇和支付领域，微观结构不再是中性的。
+
+第七节：与监管精神的趋同。
+
+巴西最近的监管动向，包括BCB第521号决议，指向更大的可预测性和减少不透明套利。校准良好的tick size自然压缩价差，减少结构性场外交易依赖，并改善价格形成质量。
+
+第八节：对投资者和政策制定者的影响。
+
+对于PE、VC和政策制定者来说，tick size是机构成熟度的领先指标。掌握微观结构的平台以较低的边际成本扩展，吸引机构流量，并面临较低的监管风险。
+
+结论。
+
+随着巴西市场讨论稳定币、场外交易和沙盒，下一个自然步骤是回归基本面。如果2026年标志着巴西数字外汇的整合，微观结构将不是细节——而是前提条件。
+`;
+
 const articleTextEn = `
 Tick Size, Market Microstructure and Functional Liquidity.
 
@@ -222,6 +266,7 @@ export default function ArticleTickSize() {
           <AudioPlayer 
             textPt={articleTextPt}
             textEn={articleTextEn}
+            textZh={articleTextZh}
             title={articleMeta.title}
           />
         </motion.div>
