@@ -1,11 +1,12 @@
 /**
  * AudioPlayer Component - Text-to-Speech
- * Uses Eleven Labs API with browser TTS fallback
+ * Uses Eleven Labs API with streaming for fast response
+ * Falls back to browser TTS if API unavailable
  * Supports PT, EN, and ZH languages
  */
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, Volume2, VolumeX, SkipBack, Headphones, Loader2 } from 'lucide-react';
+import { Play, Pause, SkipBack, Headphones, Loader2 } from 'lucide-react';
 
 interface AudioPlayerProps {
   textPt: string;
@@ -22,24 +23,20 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
   const [language, setLanguage] = useState<Language>('pt');
   const [progress, setProgress] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [rate, setRate] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [useElevenLabs, setUseElevenLabs] = useState(true);
-  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [rate, setRate] = useState(1);
   
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
-  const textRef = useRef<string>('');
-  const charIndexRef = useRef(0);
 
-  const getText = (lang: Language) => {
+  const getText = useCallback((lang: Language) => {
     switch (lang) {
       case 'pt': return textPt;
       case 'en': return textEn || textPt;
       case 'zh': return textZh || textEn || textPt;
     }
-  };
+  }, [textPt, textEn, textZh]);
 
   const text = getText(language);
 
@@ -63,44 +60,50 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
     }
   };
 
-  // Generate audio using Eleven Labs API
+  // Generate audio using Eleven Labs streaming API
   const generateElevenLabsAudio = async () => {
     setIsLoading(true);
+    
     try {
+      // Create audio element that can play streaming audio
+      const audio = new Audio();
+      audioRef.current = audio;
+      
       const response = await fetch('/api/tts/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          text: text.substring(0, 5000), // Limit text length for API
+          text: text.substring(0, 2500), // Limit text length
           language,
         }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        if (errorData.fallback) {
-          console.log('Eleven Labs unavailable, using browser TTS');
-          setUseElevenLabs(false);
-          speakWithBrowserTTS();
-          return;
+        const contentType = response.headers.get('content-type');
+        if (contentType?.includes('application/json')) {
+          const errorData = await response.json();
+          if (errorData.fallback) {
+            console.log('Eleven Labs unavailable, using browser TTS');
+            setUseElevenLabs(false);
+            setIsLoading(false);
+            speakWithBrowserTTS();
+            return;
+          }
         }
         throw new Error('TTS generation failed');
       }
 
+      // Create blob URL from streaming response
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
-      setAudioUrl(url);
       
-      // Create and play audio
-      const audio = new Audio(url);
-      audioRef.current = audio;
+      audio.src = url;
       audio.playbackRate = rate;
-      audio.volume = isMuted ? 0 : 1;
       
       audio.ontimeupdate = () => {
-        if (audio.duration) {
+        if (audio.duration && !isNaN(audio.duration)) {
           setProgress((audio.currentTime / audio.duration) * 100);
         }
       };
@@ -109,24 +112,43 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
         setIsPlaying(false);
         setIsPaused(false);
         setProgress(100);
+        URL.revokeObjectURL(url);
         setTimeout(() => setProgress(0), 1000);
       };
       
-      audio.onerror = () => {
-        console.log('Audio error, falling back to browser TTS');
+      audio.onerror = (e) => {
+        console.log('Audio error, falling back to browser TTS', e);
+        URL.revokeObjectURL(url);
         setUseElevenLabs(false);
+        setIsLoading(false);
         speakWithBrowserTTS();
       };
+
+      audio.oncanplaythrough = () => {
+        setIsLoading(false);
+      };
+
+      // Start playing as soon as we have enough data
+      audio.oncanplay = async () => {
+        try {
+          await audio.play();
+          setIsPlaying(true);
+          setIsPaused(false);
+          setIsLoading(false);
+        } catch (playError) {
+          console.error('Play error:', playError);
+          setIsLoading(false);
+        }
+      };
+
+      // Load the audio
+      audio.load();
       
-      await audio.play();
-      setIsPlaying(true);
-      setIsPaused(false);
     } catch (error) {
       console.error('Eleven Labs error:', error);
       setUseElevenLabs(false);
-      speakWithBrowserTTS();
-    } finally {
       setIsLoading(false);
+      speakWithBrowserTTS();
     }
   };
 
@@ -136,19 +158,14 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
       speechSynthesis.cancel();
     }
 
-    textRef.current = text;
-    charIndexRef.current = 0;
-
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.voice = getVoice(language);
     utterance.lang = language === 'pt' ? 'pt-BR' : language === 'zh' ? 'zh-CN' : 'en-US';
     utterance.rate = rate;
     utterance.pitch = 1;
-    utterance.volume = isMuted ? 0 : 1;
 
     utterance.onboundary = (event) => {
       if (event.name === 'word') {
-        charIndexRef.current = event.charIndex;
         const progressPercent = (event.charIndex / text.length) * 100;
         setProgress(progressPercent);
       }
@@ -170,7 +187,6 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
     speechSynthesis.speak(utterance);
     setIsPlaying(true);
     setIsPaused(false);
-    setIsLoading(false);
   };
 
   const speak = () => {
@@ -217,24 +233,14 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
     setIsPlaying(false);
     setIsPaused(false);
     setProgress(0);
+    setIsLoading(false);
   };
 
   const changeLanguage = (newLang: Language) => {
     if (newLang !== language) {
       stop();
       setLanguage(newLang);
-      setAudioUrl(null);
       setUseElevenLabs(true); // Reset to try Eleven Labs for new language
-    }
-  };
-
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-    if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 1 : 0;
-    }
-    if (utteranceRef.current) {
-      utteranceRef.current.volume = isMuted ? 1 : 0;
     }
   };
 
@@ -248,12 +254,6 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
     if (audioRef.current) {
       audioRef.current.playbackRate = newRate;
     }
-    
-    // If using browser TTS and playing, restart with new rate
-    if (!useElevenLabs && isPlaying) {
-      stop();
-      setTimeout(() => speakWithBrowserTTS(), 100);
-    }
   };
 
   // Cleanup on unmount
@@ -263,11 +263,8 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
       if (audioRef.current) {
         audioRef.current.pause();
       }
-      if (audioUrl) {
-        URL.revokeObjectURL(audioUrl);
-      }
     };
-  }, [audioUrl]);
+  }, []);
 
   // Load voices
   useEffect(() => {
@@ -286,6 +283,14 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
     en: { flag: '🇺🇸', name: 'English' },
     zh: { flag: '🇨🇳', name: '中文' },
   };
+
+  // Check which languages are available
+  const availableLanguages = (['pt', 'en', 'zh'] as Language[]).filter(lang => {
+    if (lang === 'pt') return true;
+    if (lang === 'en') return !!textEn;
+    if (lang === 'zh') return !!textZh;
+    return false;
+  });
 
   return (
     <div className="mb-8">
@@ -338,45 +343,24 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
               {/* Language Toggle */}
               <div className="flex items-center gap-2 mb-4 flex-wrap">
                 <span className="text-xs text-muted-foreground">Language:</span>
-                <button
-                  onClick={() => changeLanguage('pt')}
-                  className={`px-3 py-1 text-xs rounded border transition-all ${
-                    language === 'pt'
-                      ? 'bg-primary/20 text-primary border-primary'
-                      : 'border-border hover:border-primary/50'
-                  }`}
-                >
-                  {languageLabels.pt.flag} {languageLabels.pt.name}
-                </button>
-                {textEn && (
+                {availableLanguages.map((lang) => (
                   <button
-                    onClick={() => changeLanguage('en')}
-                    className={`px-3 py-1 text-xs rounded border transition-all ${
-                      language === 'en'
-                        ? 'bg-primary/20 text-primary border-primary'
-                        : 'border-border hover:border-primary/50'
+                    key={lang}
+                    onClick={() => changeLanguage(lang)}
+                    className={`px-3 py-1.5 text-sm rounded-full border transition-all ${
+                      language === lang
+                        ? 'bg-primary/20 border-primary text-primary'
+                        : 'border-border text-muted-foreground hover:border-primary/50'
                     }`}
                   >
-                    {languageLabels.en.flag} {languageLabels.en.name}
+                    {languageLabels[lang].flag} {languageLabels[lang].name}
                   </button>
-                )}
-                {textZh && (
-                  <button
-                    onClick={() => changeLanguage('zh')}
-                    className={`px-3 py-1 text-xs rounded border transition-all ${
-                      language === 'zh'
-                        ? 'bg-primary/20 text-primary border-primary'
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                  >
-                    {languageLabels.zh.flag} {languageLabels.zh.name}
-                  </button>
-                )}
+                ))}
               </div>
 
               {/* Progress Bar */}
               <div className="mb-4">
-                <div className="h-1 bg-border rounded-full overflow-hidden">
+                <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-primary"
                     style={{ width: `${progress}%` }}
@@ -394,59 +378,47 @@ export default function AudioPlayer({ textPt, textEn, textZh, title }: AudioPlay
               </div>
 
               {/* Controls */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  {/* Play/Pause */}
-                  <button
-                    onClick={togglePlay}
-                    disabled={isLoading}
-                    className="w-10 h-10 flex items-center justify-center bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50"
-                  >
-                    {isLoading ? (
-                      <Loader2 size={18} className="animate-spin" />
-                    ) : isPlaying && !isPaused ? (
-                      <Pause size={18} />
-                    ) : (
-                      <Play size={18} className="ml-0.5" />
-                    )}
-                  </button>
+              <div className="flex items-center gap-3">
+                {/* Play/Pause Button */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={togglePlay}
+                  disabled={isLoading}
+                  className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center disabled:opacity-50"
+                >
+                  {isLoading ? (
+                    <Loader2 size={20} className="animate-spin" />
+                  ) : isPlaying && !isPaused ? (
+                    <Pause size={20} />
+                  ) : (
+                    <Play size={20} className="ml-0.5" />
+                  )}
+                </motion.button>
 
-                  {/* Stop */}
-                  <button
-                    onClick={stop}
-                    disabled={!isPlaying && !isLoading}
-                    className="w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-30 transition-colors"
-                  >
-                    <SkipBack size={16} />
-                  </button>
-                </div>
+                {/* Restart Button */}
+                <button
+                  onClick={stop}
+                  className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+                  title="Restart"
+                >
+                  <SkipBack size={18} />
+                </button>
 
-                <div className="flex items-center gap-3">
-                  {/* Speed */}
-                  <button
-                    onClick={changeRate}
-                    className="px-2 py-1 text-xs meta-mono border border-border rounded hover:border-primary/50 transition-colors"
-                  >
-                    {rate}x
-                  </button>
-
-                  {/* Mute */}
-                  <button
-                    onClick={toggleMute}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                  </button>
-                </div>
+                {/* Speed Control */}
+                <button
+                  onClick={changeRate}
+                  className="px-2 py-1 text-xs meta-mono text-muted-foreground hover:text-foreground border border-border rounded transition-colors"
+                >
+                  {rate}x
+                </button>
               </div>
 
-              {/* Status indicator */}
+              {/* Note about TTS */}
               {!useElevenLabs && (
-                <div className="mt-4 pt-3 border-t border-border">
-                  <p className="text-xs text-muted-foreground text-center">
-                    <span className="text-primary">Note:</span> Using browser TTS. Premium voices available in production.
-                  </p>
-                </div>
+                <p className="mt-4 text-xs text-muted-foreground">
+                  <span className="text-primary">Note:</span> Using browser TTS. Premium voices available in production.
+                </p>
               )}
             </div>
           </motion.div>

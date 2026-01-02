@@ -34,3 +34,5 @@
 - [x] Corrigir voz Eleven Labs para português (fallback ocorrendo)
 - [x] Substituir imagens carregadas (Global South) por versões mais discretas
 - [x] Corrigir tradução chinês no corpo do artigo Tick Size
+- [x] Implementar streaming de áudio Eleven Labs para velocidade
+- [x] Corrigir voz PT que ainda está falhando (usando turbo model)

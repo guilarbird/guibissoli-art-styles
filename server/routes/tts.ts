@@ -8,13 +8,13 @@ const VOICES = {
   // Rachel - clear English voice, good for narration
   en: "21m00Tcm4TlvDq8ikWAM",
   // Antoni - multilingual voice that works well with Portuguese
-  // Alternative: Flavio Francisco (x6uRgOliu4lpcrqMH3s1) for native Brazilian
   pt: "ErXwobaYiN019PkySvjV",
   // Bella - works well with Chinese/Mandarin
   zh: "EXAVITQu4vr4xnSDxMaL",
 };
 
-// Text-to-Speech endpoint using Eleven Labs
+// Streaming Text-to-Speech endpoint using Eleven Labs
+// Uses streaming API with latency optimization for faster response
 router.post("/generate", async (req, res) => {
   try {
     const { text, language = "en" } = req.body;
@@ -35,10 +35,14 @@ router.post("/generate", async (req, res) => {
 
     const voiceId = VOICES[language as keyof typeof VOICES] || VOICES.en;
 
-    console.log(`TTS request: language=${language}, voiceId=${voiceId}, textLength=${text.length}`);
+    // Truncate text to reasonable length (Eleven Labs has limits)
+    const truncatedText = text.substring(0, 2500);
 
+    console.log(`TTS streaming request: language=${language}, voiceId=${voiceId}, textLength=${truncatedText.length}`);
+
+    // Use streaming endpoint with latency optimization
     const response = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=3&output_format=mp3_22050_32`,
       {
         method: "POST",
         headers: {
@@ -47,8 +51,8 @@ router.post("/generate", async (req, res) => {
           "xi-api-key": apiKey,
         },
         body: JSON.stringify({
-          text,
-          model_id: "eleven_multilingual_v2",
+          text: truncatedText,
+          model_id: "eleven_turbo_v2_5", // Faster turbo model
           voice_settings: {
             stability: 0.5,
             similarity_boost: 0.75,
@@ -70,13 +74,37 @@ router.post("/generate", async (req, res) => {
       });
     }
 
-    // Stream the audio response
+    // Stream the audio response directly to client
     res.setHeader("Content-Type", "audio/mpeg");
     res.setHeader("Cache-Control", "public, max-age=86400"); // Cache for 24h
+    res.setHeader("Transfer-Encoding", "chunked");
     
-    const arrayBuffer = await response.arrayBuffer();
-    console.log(`TTS success: language=${language}, audioSize=${arrayBuffer.byteLength}`);
-    res.send(Buffer.from(arrayBuffer));
+    // Pipe the stream directly
+    if (response.body) {
+      const reader = response.body.getReader();
+      
+      const pump = async () => {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            res.end();
+            console.log(`TTS streaming complete: language=${language}`);
+            break;
+          }
+          res.write(Buffer.from(value));
+        }
+      };
+      
+      pump().catch((err) => {
+        console.error("Stream error:", err);
+        res.end();
+      });
+    } else {
+      // Fallback if body is not readable stream
+      const arrayBuffer = await response.arrayBuffer();
+      console.log(`TTS success: language=${language}, audioSize=${arrayBuffer.byteLength}`);
+      res.send(Buffer.from(arrayBuffer));
+    }
 
   } catch (error) {
     console.error("TTS generation error:", error);
@@ -84,6 +112,71 @@ router.post("/generate", async (req, res) => {
       error: "TTS service error",
       fallback: true,
       message: "Use browser native TTS as fallback"
+    });
+  }
+});
+
+// Quick TTS endpoint - returns smaller audio for faster loading
+router.post("/quick", async (req, res) => {
+  try {
+    const { text, language = "en" } = req.body;
+
+    if (!text) {
+      return res.status(400).json({ error: "Text is required" });
+    }
+
+    const apiKey = process.env.ELEVENLABS_API_KEY;
+    
+    if (!apiKey) {
+      return res.status(503).json({ 
+        error: "TTS service not configured",
+        fallback: true,
+      });
+    }
+
+    const voiceId = VOICES[language as keyof typeof VOICES] || VOICES.en;
+
+    // Only first 500 chars for quick preview
+    const shortText = text.substring(0, 500);
+
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=4&output_format=mp3_22050_32`,
+      {
+        method: "POST",
+        headers: {
+          "Accept": "audio/mpeg",
+          "Content-Type": "application/json",
+          "xi-api-key": apiKey,
+        },
+        body: JSON.stringify({
+          text: shortText,
+          model_id: "eleven_turbo_v2_5",
+          voice_settings: {
+            stability: 0.5,
+            similarity_boost: 0.75,
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      return res.status(503).json({ 
+        error: "TTS service unavailable",
+        fallback: true,
+      });
+    }
+
+    res.setHeader("Content-Type", "audio/mpeg");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    
+    const arrayBuffer = await response.arrayBuffer();
+    res.send(Buffer.from(arrayBuffer));
+
+  } catch (error) {
+    console.error("Quick TTS error:", error);
+    res.status(503).json({ 
+      error: "TTS service error",
+      fallback: true,
     });
   }
 });
