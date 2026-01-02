@@ -1,19 +1,18 @@
 /**
  * Home Page - Terminal Aesthetic
- * Landing page with hero, featured writings, and newsletter CTA
- * Bilingual support (EN/PT)
+ * Landing page with hero, featured carousel, and newsletter CTA
+ * Trilingual support (EN/PT/ZH)
  */
 
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink, Mail, Users, Zap } from 'lucide-react';
 import Navigation from '@/components/Navigation';
-import { getFeaturedArticles } from '@/data/articles';
+import FeaturedCarousel from '@/components/FeaturedCarousel';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Home() {
-  const featuredArticles = getFeaturedArticles();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
@@ -81,7 +80,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Writings */}
+      {/* Featured Writings Carousel */}
       <section className="py-20 border-t border-border">
         <div className="container">
           <motion.div
@@ -90,48 +89,17 @@ export default function Home() {
             viewport={{ once: true }}
           >
             {/* Section header */}
-            <div className="flex items-center gap-3 mb-10">
+            <div className="flex items-center gap-3 mb-8">
               <span className="text-primary font-mono">{'>'}</span>
               <h2 className="font-display text-2xl font-semibold">{t('home.featured')}</h2>
               <div className="flex-1 h-px bg-border ml-4" />
             </div>
             
-            {/* Articles grid */}
-            <div className="space-y-6 stagger-children">
-              {featuredArticles.map((article) => (
-                <Link
-                  key={article.slug}
-                  href={`/writings/${article.slug}`}
-                  className="block article-card py-6 group"
-                >
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="meta-mono">{article.date}</span>
-                        <span className="text-border">•</span>
-                        <span className="meta-mono">{article.readTime} {t('common.read')}</span>
-                        <span className="text-border">•</span>
-                        <span className="meta-mono uppercase text-xs">{article.language}</span>
-                      </div>
-                      <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="text-muted-foreground line-clamp-2">
-                        {article.excerpt}
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 md:justify-end">
-                      {article.tags.slice(0, 3).map((tag) => (
-                        <span key={tag} className="tag">#{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            {/* Carousel */}
+            <FeaturedCarousel />
             
             {/* View all link */}
-            <div className="mt-10 text-center">
+            <div className="mt-8 text-center">
               <Link 
                 href="/writings"
                 className="inline-flex items-center gap-2 text-primary hover:underline font-mono text-sm"
@@ -144,41 +112,98 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-20 border-t border-border">
-        <div className="container">
+      {/* Newsletter CTA - Redesigned with more presence */}
+      <section className="py-24 border-t border-border relative overflow-hidden">
+        {/* Background image */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'url(/images/newsletter-hero.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background/80" />
+        
+        <div className="container relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-2xl mx-auto text-center"
+            className="grid md:grid-cols-2 gap-12 items-center"
           >
-            <div className="terminal-window p-8">
-              <div className="terminal-header mb-6 -mx-8 -mt-8 rounded-t-lg">
-                <div className="terminal-dot bg-red-500" />
-                <div className="terminal-dot bg-yellow-500" />
-                <div className="terminal-dot bg-green-500" />
-                <span className="ml-4 font-mono text-xs text-muted-foreground">newsletter.sh</span>
+            {/* Left side - Content */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Mail className="text-primary" size={20} />
+                <span className="meta-mono uppercase tracking-wider text-primary">Newsletter</span>
               </div>
               
-              <h3 className="font-display text-2xl font-semibold mb-4">
+              <h3 className="font-display text-3xl md:text-4xl font-bold mb-4">
                 {t('home.newsletter.title')}
               </h3>
-              <p className="text-muted-foreground mb-6">
+              
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 {t('home.newsletter.desc')}
-                <br />
-                <span className="meta-mono">{t('home.newsletter.subdesc')}</span>
               </p>
+              
+              {/* Stats */}
+              <div className="flex gap-8 mb-8">
+                <div className="flex items-center gap-2">
+                  <Users className="text-primary" size={18} />
+                  <span className="font-mono text-sm">
+                    <span className="text-foreground font-semibold">1,200+</span>
+                    <span className="text-muted-foreground ml-1">{t('home.newsletter.subscribers')}</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Zap className="text-primary" size={18} />
+                  <span className="font-mono text-sm text-muted-foreground">Weekly insights</span>
+                </div>
+              </div>
               
               <a
                 href="https://www.linkedin.com/newsletters/web3-stablecoins-brief-6948081875227717632"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-all hover:scale-105 shadow-lg shadow-primary/20"
               >
-                <span>{t('home.newsletter.cta')}</span>
-                <ExternalLink size={18} />
+                <span className="text-lg">{t('home.newsletter.cta')}</span>
+                <ExternalLink size={20} />
               </a>
+              
+              <p className="mt-4 text-sm text-muted-foreground">
+                {t('home.newsletter.subdesc')}
+              </p>
+            </div>
+            
+            {/* Right side - Visual element */}
+            <div className="hidden md:block">
+              <div className="relative">
+                {/* Terminal window preview */}
+                <div className="terminal-window p-6 transform rotate-2 hover:rotate-0 transition-transform">
+                  <div className="terminal-header mb-4 -mx-6 -mt-6 rounded-t-lg">
+                    <div className="terminal-dot bg-red-500" />
+                    <div className="terminal-dot bg-yellow-500" />
+                    <div className="terminal-dot bg-green-500" />
+                    <span className="ml-4 font-mono text-xs text-muted-foreground">latest_issue.md</span>
+                  </div>
+                  
+                  <div className="font-mono text-sm space-y-2">
+                    <p className="text-muted-foreground"># Latest Issue</p>
+                    <p className="text-foreground">Tick Size, Microestrutura</p>
+                    <p className="text-foreground">e Liquidez Funcional</p>
+                    <p className="text-muted-foreground mt-4">## Topics</p>
+                    <p className="text-primary">- Market microstructure</p>
+                    <p className="text-primary">- OTC vs Exchange</p>
+                    <p className="text-primary">- Regulatory sandbox</p>
+                  </div>
+                </div>
+                
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary/10 rounded-full blur-2xl" />
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-full blur-3xl" />
+              </div>
             </div>
           </motion.div>
         </div>
