@@ -159,34 +159,34 @@ export default function About() {
               <div className="space-y-4">
                 {[
                   {
-                    period: '2024 - Present',
-                    role: 'Managing Partner',
-                    company: 'Coins.xyz Brazil',
-                    description: 'Leading Brazil operations. Same team, new mission: crypto infrastructure for the Global South.',
+                    period: '2024 - 2025',
+                    role: 'Coins.xyz Director',
+                    company: 'Coins.ph',
+                    description: 'Leading LatAm & Africa expansion. Same crew from Binance & OFR days, new mission: crypto infrastructure for the Global South.',
                     link: 'https://coins.xyz',
                     highlight: true,
                   },
                   {
                     period: '2021 - 2024',
-                    role: 'Head of Fiat',
-                    company: 'Binance',
-                    description: 'Scaled fiat operations during the exchange\'s hyper-growth phase in Brazil. Wild times.',
-                    link: 'https://binance.com',
-                    highlight: false,
-                  },
-                  {
-                    period: '2021 - 2022',
-                    role: 'Investment Team',
+                    role: 'Principal',
                     company: 'Old Fashion Research',
-                    description: 'Asian multi-strategy blockchain fund. Research on GameFi, DAOs, and infrastructure. Same crew, different hats.',
+                    description: 'Asian multi-strategy blockchain fund. Led deal origination across 50+ Web3 investments. GameFi, DAOs, infrastructure. Same crew, different hats.',
                     link: 'https://paragraph.com/@old-fashion-research',
                     highlight: false,
                   },
                   {
-                    period: 'Prior',
-                    role: 'Financial Sector',
+                    period: '2019 - 2021',
+                    role: 'Fiat Director',
+                    company: 'Binance',
+                    description: 'Scaled fiat integrations and fintech partnerships during the exchange\'s hyper-growth phase in Brazil. Wild times.',
+                    link: 'https://binance.com',
+                    highlight: false,
+                  },
+                  {
+                    period: '2014 - 2016',
+                    role: 'Graduate Trainee',
                     company: 'BTG Pactual',
-                    description: 'Traditional finance. Learned how the old system works before trying to improve it.',
+                    description: 'Traditional finance. M&A, capital markets, financial modeling. Learned how the old system works before trying to improve it.',
                     link: null,
                     highlight: false,
                   },
@@ -290,16 +290,8 @@ export default function About() {
                     description: 'Newsletter on crypto infrastructure and the Global South. Published on LinkedIn.',
                     link: 'https://www.linkedin.com/newsletters/web3-stablecoins-brief-6948081875227717632',
                   },
-                  {
-                    title: 'Exame Future of Money',
-                    description: 'Contributing writer on stablecoins, VASPs, and Brazilian crypto regulation.',
-                    link: 'https://exame.com/future-of-money/',
-                  },
-                  {
-                    title: 'ABToken',
-                    description: 'Member of the Brazilian Association of Tokenization Companies.',
-                    link: null,
-                  },
+
+
                 ].map((item) => (
                   <div 
                     key={item.title}
