@@ -1,10 +1,10 @@
 /**
  * About Page - Terminal Aesthetic
- * Bio, current work, and contact info
+ * Bio, experience, education, and contact info
  */
 
 import { motion } from 'framer-motion';
-import { ExternalLink, MapPin, Briefcase, Mail, Twitter, Linkedin, Github } from 'lucide-react';
+import { ExternalLink, MapPin, Briefcase, Mail, Twitter, Linkedin, Github, GraduationCap, Award } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 
 export default function About() {
@@ -51,11 +51,11 @@ export default function About() {
               
               {/* Quick Info */}
               <div className="space-y-3">
-                <h2 className="font-display text-2xl font-semibold">Guilherme Bissoli</h2>
+                <h2 className="font-display text-2xl font-semibold">Guilherme Nicoli Bissoli</h2>
                 
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Briefcase size={16} />
-                  <span>Country Owner @ Coins.xyz Brazil</span>
+                  <span>Managing Partner @ Coins.xyz Brazil</span>
                 </div>
                 
                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -66,32 +66,36 @@ export default function About() {
                 {/* Social Links */}
                 <div className="flex items-center gap-4 pt-2">
                   <a 
-                    href="https://twitter.com/guibissoli" 
+                    href="https://twitter.com/guinicoli" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    title="Twitter/X"
                   >
                     <Twitter size={20} />
                   </a>
                   <a 
-                    href="https://linkedin.com/in/guilhermebissoli" 
+                    href="https://linkedin.com/in/guinicoli" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    title="LinkedIn"
                   >
                     <Linkedin size={20} />
                   </a>
                   <a 
-                    href="https://github.com/guibissoli" 
+                    href="https://github.com/guiguibashow" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    title="GitHub"
                   >
                     <Github size={20} />
                   </a>
                   <a 
                     href="mailto:gui@coins.xyz"
                     className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                    title="Email"
                   >
                     <Mail size={20} />
                   </a>
@@ -129,10 +133,129 @@ export default function About() {
                 </p>
                 
                 <p>
-                  Before crypto, I worked in traditional finance and tech startups. The combination 
-                  of these experiences gave me a unique perspective on what's broken in the current 
-                  financial system—and how to fix it.
+                  Before Coins.xyz, I was <span className="text-primary">Head of Fiat at Binance</span> Brazil, 
+                  where I helped scale operations during the exchange's hyper-growth phase. I also worked 
+                  at <span className="text-primary">Old Fashion Research</span> (Asian multi-strategy blockchain fund), 
+                  BTG Pactual, and various tech startups.
                 </p>
+              </div>
+            </motion.div>
+
+            {/* Experience Timeline */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.25 }}
+              className="mb-12"
+            >
+              <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
+                <span className="text-primary font-mono">{'>'}</span>
+                Experience
+              </h3>
+              
+              <div className="space-y-4">
+                {[
+                  {
+                    period: '2024 - Present',
+                    role: 'Managing Partner',
+                    company: 'Coins.xyz Brazil',
+                    description: 'Leading Brazil operations for crypto infrastructure platform. OTC, B2B, and retail.',
+                    link: 'https://coins.xyz',
+                  },
+                  {
+                    period: '2021 - 2024',
+                    role: 'Head of Fiat',
+                    company: 'Binance',
+                    description: 'Scaled fiat operations during hyper-growth phase in Brazil.',
+                    link: 'https://binance.com',
+                  },
+                  {
+                    period: '2021 - 2022',
+                    role: 'Investment Team',
+                    company: 'Old Fashion Research',
+                    description: 'Asian multi-strategy blockchain investment fund. Research on GameFi, DAOs, and infrastructure.',
+                    link: 'https://paragraph.com/@old-fashion-research',
+                  },
+                  {
+                    period: 'Prior',
+                    role: 'Financial Sector',
+                    company: 'BTG Pactual & Others',
+                    description: 'Traditional finance and tech startups experience.',
+                    link: null,
+                  },
+                ].map((item) => (
+                  <div 
+                    key={item.company}
+                    className="article-card py-4 flex items-start justify-between gap-4"
+                  >
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="meta-mono text-primary">{item.period}</span>
+                      </div>
+                      <h4 className="font-semibold">{item.role} @ {item.company}</h4>
+                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                    </div>
+                    {item.link && (
+                      <a 
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-shrink-0 p-2 text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        <ExternalLink size={18} />
+                      </a>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Education */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="mb-12"
+            >
+              <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
+                <span className="text-primary font-mono">{'>'}</span>
+                <GraduationCap size={20} />
+                Education
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="article-card py-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <span className="meta-mono text-primary">2013 - 2014</span>
+                      <h4 className="font-semibold">MSc Finance and Investments</h4>
+                      <p className="text-muted-foreground">Rotterdam School of Management, Erasmus University</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Thesis: "Credit spreads and real economic activity"
+                      </p>
+                    </div>
+                    <a 
+                      href="http://hdl.handle.net/2105/22123"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-shrink-0 p-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="article-card py-4">
+                  <div>
+                    <span className="meta-mono text-primary">Prior</span>
+                    <h4 className="font-semibold">IB Diploma</h4>
+                    <p className="text-muted-foreground">International Baccalaureate</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Award size={14} className="text-primary" />
+                      <span className="text-sm text-primary">CAS Awards recipient</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
 
@@ -140,7 +263,7 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.35 }}
               className="mb-12"
             >
               <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
@@ -157,15 +280,20 @@ export default function About() {
                   },
                   {
                     title: 'Web3 + Stablecoins Brief',
-                    description: 'Weekly newsletter on crypto infrastructure and the Global South.',
+                    description: 'Newsletter on crypto infrastructure and the Global South. Published on LinkedIn.',
                     link: 'https://www.linkedin.com/newsletters/web3-stablecoins-brief-6948081875227717632',
                   },
                   {
-                    title: 'Regulatory Advocacy',
-                    description: 'Working with regulators to shape sensible crypto policy in Brazil.',
+                    title: 'Exame Future of Money',
+                    description: 'Contributing writer on stablecoins, VASPs, and Brazilian crypto regulation.',
+                    link: 'https://exame.com/future-of-money/',
+                  },
+                  {
+                    title: 'ABToken',
+                    description: 'Member of the Brazilian Association of Tokenization Companies.',
                     link: null,
                   },
-                ].map((item, index) => (
+                ].map((item) => (
                   <div 
                     key={item.title}
                     className="article-card py-4 flex items-start justify-between gap-4"
@@ -211,8 +339,43 @@ export default function About() {
                   'Regulatory Frameworks',
                   'Financial Inclusion',
                   'PIX Infrastructure',
+                  'Cybersecurity',
+                  'GameFi',
                 ].map((topic) => (
                   <span key={topic} className="tag">{topic}</span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Media Appearances */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.45 }}
+              className="mb-12"
+            >
+              <h3 className="font-display text-xl font-semibold mb-6 flex items-center gap-3">
+                <span className="text-primary font-mono">{'>'}</span>
+                Featured In
+              </h3>
+              
+              <div className="flex flex-wrap gap-4 text-muted-foreground">
+                {[
+                  { name: 'Valor Econômico', url: 'https://valor.globo.com' },
+                  { name: 'Exame', url: 'https://exame.com' },
+                  { name: 'Investing.com', url: 'https://investing.com' },
+                  { name: 'Livecoins', url: 'https://livecoins.com.br' },
+                  { name: 'Hackernoon', url: 'https://hackernoon.com' },
+                ].map((media) => (
+                  <a
+                    key={media.name}
+                    href={media.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary transition-colors"
+                  >
+                    {media.name}
+                  </a>
                 ))}
               </div>
             </motion.div>
@@ -244,7 +407,7 @@ export default function About() {
                   <span>Email me</span>
                 </a>
                 <a
-                  href="https://twitter.com/guibissoli"
+                  href="https://twitter.com/guinicoli"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 border border-border text-foreground font-medium rounded hover:bg-card transition-colors"

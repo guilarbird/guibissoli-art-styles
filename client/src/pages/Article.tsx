@@ -105,19 +105,20 @@ export default function Article() {
                 </div>
                 
                 <p className="text-muted-foreground mb-6">
-                  This article was originally published on my LinkedIn newsletter.
+                  This article was originally published on{' '}
+                  <span className="text-primary">{article.publication || 'external platform'}</span>.
                   <br />
                   Click below to read the full content.
                 </p>
                 
-                {article.linkedinUrl && (
+                {article.url && (
                   <a
-                    href={article.linkedinUrl}
+                    href={article.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded hover:bg-primary/90 transition-colors"
                   >
-                    <span>Read full article on LinkedIn</span>
+                    <span>Read full article on {article.publication || 'source'}</span>
                     <ExternalLink size={18} />
                   </a>
                 )}
