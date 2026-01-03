@@ -51,3 +51,11 @@
 - [x] Padronizar player de áudio com normalização e cache
 - [x] Implementar sistema de i18n real com arquivos de locale
 - [x] Criar validador de conteúdo para CI
+- [x] Corrigir link do GitHub (guilarbird -> correto)
+- [x] Corrigir página About em português (bio quebrada)
+- [x] Construir sistema de blog escalável com conteúdo em arquivos separados
+- [x] Criar estrutura de blog biográfico com seções por capítulo de carreira
+- [x] Adicionar seção Old Fashion Research (editorial contributor, research review)
+- [x] Adicionar seção Binance (fiat integrations, Brazil expansion) - em construção
+- [x] Organizar seção Coins.xyz (Global South thesis, current work)
+- [x] Implementar indicadores elegantes de "em construção" para seções incompletas

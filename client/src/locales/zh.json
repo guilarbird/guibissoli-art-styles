@@ -75,6 +75,15 @@
     "rights": "版权所有",
     "builtWith": "构建于"
   },
+  "about": {
+    "title": "关于",
+    "experience": "经历",
+    "education": "教育",
+    "focus": "当前关注",
+    "interests": "研究兴趣",
+    "building": "建设中",
+    "current": "当前"
+  },
   "errors": {
     "notFound": "页面未找到",
     "serverError": "服务器错误",

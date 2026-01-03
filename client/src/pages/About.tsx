@@ -4,7 +4,8 @@
  */
 
 import { motion } from 'framer-motion';
-import { ExternalLink, MapPin, Briefcase, Mail, Twitter, Linkedin, Github, GraduationCap, Award } from 'lucide-react';
+import { ExternalLink, MapPin, Briefcase, Mail, Twitter, Linkedin, Github, GraduationCap, Award, ArrowRight, Construction } from 'lucide-react';
+import { Link } from 'wouter';
 import Navigation from '@/components/Navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -87,7 +88,7 @@ export default function About() {
                     <Linkedin size={20} />
                   </a>
                   <a 
-                    href="https://github.com/guiguibashow" 
+                    href="https://github.com/guilarbird" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-2 text-muted-foreground hover:text-primary transition-colors"
@@ -162,60 +163,66 @@ export default function About() {
               <div className="space-y-4">
                 {[
                   {
-                    period: '2024 - 2025',
-                    role: 'Coins.xyz Director',
-                    company: 'Coins.ph',
+                    period: '2024 - Present',
+                    role: 'Managing Partner, Brazil',
+                    company: 'Coins.xyz',
                     description: 'Leading LatAm & Africa expansion. Same crew from Binance & OFR days, new mission: crypto infrastructure for the Global South.',
-                    link: 'https://coins.xyz',
-                    highlight: true,
+                    chapterSlug: 'coins-xyz',
+                    status: 'active',
                   },
                   {
                     period: '2021 - 2024',
                     role: 'Principal',
                     company: 'Old Fashion Research',
-                    description: 'Asian multi-strategy blockchain fund. Led deal origination across 50+ Web3 investments. GameFi, DAOs, infrastructure. Same crew, different hats.',
-                    link: 'https://paragraph.com/@old-fashion-research',
-                    highlight: false,
+                    description: 'Asian multi-strategy blockchain fund. Editorial contributor for research publications across 50+ Web3 investments.',
+                    chapterSlug: 'old-fashion-research',
+                    status: 'complete',
                   },
                   {
                     period: '2019 - 2021',
                     role: 'Fiat Director',
                     company: 'Binance',
-                    description: 'Scaled fiat integrations and fintech partnerships during the exchange\'s hyper-growth phase in Brazil. Wild times.',
-                    link: 'https://binance.com',
-                    highlight: false,
+                    description: 'Scaled fiat integrations and fintech partnerships during the exchange\'s hyper-growth phase in Brazil.',
+                    chapterSlug: 'binance',
+                    status: 'building',
                   },
                   {
                     period: '2014 - 2016',
                     role: 'Graduate Trainee',
                     company: 'BTG Pactual',
-                    description: 'Traditional finance. M&A, capital markets, financial modeling. Learned how the old system works before trying to improve it.',
-                    link: null,
-                    highlight: false,
+                    description: 'Traditional finance. M&A, capital markets, financial modeling. Learned how the old system works.',
+                    chapterSlug: 'btg-pactual',
+                    status: 'building',
                   },
                 ].map((item) => (
-                  <div 
+                  <Link 
                     key={item.company}
-                    className="article-card py-4 flex items-start justify-between gap-4"
+                    href={`/chapter/${item.chapterSlug}`}
+                    className="article-card py-4 flex items-start justify-between gap-4 group cursor-pointer"
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
                         <span className="meta-mono text-primary">{item.period}</span>
+                        {item.status === 'building' && (
+                          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
+                            <Construction size={12} />
+                            {t('about.building')}
+                          </span>
+                        )}
+                        {item.status === 'active' && (
+                          <span className="inline-flex items-center gap-1 text-xs text-green-500">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            {t('about.current')}
+                          </span>
+                        )}
                       </div>
-                      <h4 className="font-semibold">{item.role} @ {item.company}</h4>
+                      <h4 className="font-semibold group-hover:text-primary transition-colors">{item.role} @ {item.company}</h4>
                       <p className="text-sm text-muted-foreground">{item.description}</p>
                     </div>
-                    {item.link && (
-                      <a 
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-shrink-0 p-2 text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        <ExternalLink size={18} />
-                      </a>
-                    )}
-                  </div>
+                    <div className="flex-shrink-0 p-2 text-muted-foreground group-hover:text-primary transition-colors">
+                      <ArrowRight size={18} />
+                    </div>
+                  </Link>
                 ))}
               </div>
             </motion.div>

@@ -75,6 +75,15 @@
     "rights": "Todos os direitos reservados",
     "builtWith": "Feito com"
   },
+  "about": {
+    "title": "Sobre",
+    "experience": "Experiência",
+    "education": "Educação",
+    "focus": "Foco Atual",
+    "interests": "Interesses de Pesquisa",
+    "building": "Em construção",
+    "current": "Atual"
+  },
   "errors": {
     "notFound": "Página não encontrada",
     "serverError": "Erro do servidor",

@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Article from "./pages/Article";
 import ArticleTickSize from "./pages/ArticleTickSize";
 import Collections from "./pages/Collections";
+import Chapter from "./pages/Chapter";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -21,6 +22,7 @@ function Router() {
       <Route path={"/writings/:slug"} component={Article} />
       <Route path={"/about"} component={About} />
       <Route path={"/collections"} component={Collections} />
+      <Route path={"/chapter/:slug"} component={Chapter} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
     </Switch>

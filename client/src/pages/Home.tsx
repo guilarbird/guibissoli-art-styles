@@ -225,7 +225,7 @@ export default function Home() {
               <a href="https://linkedin.com/in/guinicoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                 LinkedIn
               </a>
-              <a href="https://github.com/guinicoli" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              <a href="https://github.com/guilarbird" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                 GitHub
               </a>
             </div>
