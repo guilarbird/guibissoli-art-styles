@@ -1,0 +1,83 @@
+{
+  "common": {
+    "readMore": "Ler mais",
+    "viewAll": "Ver todos",
+    "search": "Buscar",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "retry": "Tentar novamente",
+    "close": "Fechar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "share": "Compartilhar",
+    "copy": "Copiar",
+    "copied": "Copiado!",
+    "download": "Baixar"
+  },
+  "nav": {
+    "home": "Início",
+    "writings": "Escritos",
+    "about": "Sobre",
+    "contact": "Contato",
+    "resume": "Currículo"
+  },
+  "writings": {
+    "title": "Escritos",
+    "subtitle": "Reflexões sobre Web3, stablecoins, infraestrutura financeira e construção para o Sul Global.",
+    "searchPlaceholder": "Buscar artigos...",
+    "allTags": "todas tags",
+    "noResults": "Nenhum artigo encontrado",
+    "categories": {
+      "all": "todos",
+      "articles": "artigos",
+      "research": "pesquisa",
+      "media": "mídia"
+    },
+    "filters": {
+      "language": "Idioma",
+      "all": "todos",
+      "pt": "PT",
+      "en": "EN"
+    },
+    "readTime": "min de leitura",
+    "views": "visualizações",
+    "featured": "Destaque"
+  },
+  "article": {
+    "publishedOn": "Publicado em",
+    "readTime": "Tempo de leitura",
+    "tags": "Tags",
+    "share": "Compartilhar",
+    "relatedArticles": "Artigos relacionados",
+    "nextArticle": "Próximo artigo",
+    "previousArticle": "Artigo anterior",
+    "tableOfContents": "Índice",
+    "audio": {
+      "listen": "Ouvir este artigo",
+      "player": "Player de Áudio",
+      "language": "Idioma",
+      "speed": "Velocidade",
+      "minimize": "minimizar",
+      "browserTTS": "Usando TTS do navegador. Vozes premium disponíveis em produção."
+    }
+  },
+  "home": {
+    "greeting": "Olá, sou",
+    "role": "Desenvolvedor & Escritor",
+    "bio": "Construindo infraestrutura financeira para mercados emergentes.",
+    "featuredWritings": "Escritos em Destaque",
+    "viewAllWritings": "ver todos os escritos",
+    "latestResearch": "Pesquisa Recente",
+    "recentMedia": "Mídia Recente"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados",
+    "builtWith": "Feito com"
+  },
+  "errors": {
+    "notFound": "Página não encontrada",
+    "serverError": "Erro do servidor",
+    "goHome": "Voltar ao início"
+  }
+}

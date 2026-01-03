@@ -47,3 +47,7 @@
 - [x] Corrigir redirect quebrado do artigo "Pix e Blockchain" no LinkedIn
 - [x] Corrigir link quebrado do artigo "O que vem depois da revolução das stablecoins"
 - [x] Corrigir links quebrados: Stablecoins câmbio, Coins.xyz Brasil Nigéria, Filipinas ao Brasil, Futuro Stablecoins Sul Global, Construindo Coins.xyz
+- [x] Implementar sistema de thumbnails com fallbacks para todos os posts
+- [x] Padronizar player de áudio com normalização e cache
+- [x] Implementar sistema de i18n real com arquivos de locale
+- [x] Criar validador de conteúdo para CI

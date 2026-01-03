@@ -1,9 +1,10 @@
 import { Router } from "express";
+import { getCacheKey, getCachedAudio, setCachedAudio, getCacheStats } from "../lib/audioCache";
 
 const router = Router();
 
-// Eleven Labs voices for different languages
-// Using multilingual voices that work well across languages
+// Eleven Labs voices optimized for each language
+// Using multilingual turbo model with language-appropriate voices
 const VOICES = {
   // Rachel - clear English voice, good for narration
   en: "21m00Tcm4TlvDq8ikWAM",
@@ -13,8 +14,17 @@ const VOICES = {
   zh: "EXAVITQu4vr4xnSDxMaL",
 };
 
-// Streaming Text-to-Speech endpoint using Eleven Labs
-// Uses streaming API with latency optimization for faster response
+// Audio normalization settings
+const AUDIO_SETTINGS = {
+  stability: 0.5,
+  similarity_boost: 0.75,
+  style: 0.0,
+  use_speaker_boost: true,
+};
+
+/**
+ * Main TTS endpoint with caching and streaming
+ */
 router.post("/generate", async (req, res) => {
   try {
     const { text, language = "en" } = req.body;
@@ -34,16 +44,27 @@ router.post("/generate", async (req, res) => {
     }
 
     const voiceId = VOICES[language as keyof typeof VOICES] || VOICES.en;
-
-    // Truncate text to reasonable length (Eleven Labs has limits)
-    // Eleven Labs supports up to 5000 chars per request
+    
+    // Truncate text to Eleven Labs limit (5000 chars)
     const truncatedText = text.substring(0, 5000);
+    
+    // Check cache first
+    const cacheKey = getCacheKey(truncatedText, language, voiceId);
+    const cachedAudio = await getCachedAudio(cacheKey);
+    
+    if (cachedAudio) {
+      console.log(`TTS cache hit: language=${language}, key=${cacheKey.substring(0, 8)}`);
+      res.setHeader("Content-Type", "audio/mpeg");
+      res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
+      res.setHeader("X-Cache", "HIT");
+      return res.send(cachedAudio);
+    }
 
-    console.log(`TTS streaming request: language=${language}, voiceId=${voiceId}, textLength=${truncatedText.length}`);
+    console.log(`TTS generating: language=${language}, voiceId=${voiceId}, textLength=${truncatedText.length}`);
 
-    // Use streaming endpoint with latency optimization
+    // Use streaming endpoint with maximum latency optimization
     const response = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=3&output_format=mp3_22050_32`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=4&output_format=mp3_22050_32`,
       {
         method: "POST",
         headers: {
@@ -53,11 +74,8 @@ router.post("/generate", async (req, res) => {
         },
         body: JSON.stringify({
           text: truncatedText,
-          model_id: "eleven_turbo_v2_5", // Faster turbo model
-          voice_settings: {
-            stability: 0.5,
-            similarity_boost: 0.75,
-          },
+          model_id: "eleven_turbo_v2_5", // Fastest model
+          voice_settings: AUDIO_SETTINGS,
         }),
       }
     );
@@ -66,7 +84,6 @@ router.post("/generate", async (req, res) => {
       const errorText = await response.text();
       console.error("Eleven Labs API error:", response.status, errorText);
       
-      // Return fallback signal for frontend to use browser TTS
       return res.status(503).json({ 
         error: "TTS service unavailable",
         fallback: true,
@@ -75,37 +92,23 @@ router.post("/generate", async (req, res) => {
       });
     }
 
-    // Stream the audio response directly to client
-    res.setHeader("Content-Type", "audio/mpeg");
-    res.setHeader("Cache-Control", "public, max-age=86400"); // Cache for 24h
-    res.setHeader("Transfer-Encoding", "chunked");
+    // Collect the full response for caching
+    const arrayBuffer = await response.arrayBuffer();
+    const audioBuffer = Buffer.from(arrayBuffer);
     
-    // Pipe the stream directly
-    if (response.body) {
-      const reader = response.body.getReader();
-      
-      const pump = async () => {
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) {
-            res.end();
-            console.log(`TTS streaming complete: language=${language}`);
-            break;
-          }
-          res.write(Buffer.from(value));
-        }
-      };
-      
-      pump().catch((err) => {
-        console.error("Stream error:", err);
-        res.end();
-      });
-    } else {
-      // Fallback if body is not readable stream
-      const arrayBuffer = await response.arrayBuffer();
-      console.log(`TTS success: language=${language}, audioSize=${arrayBuffer.byteLength}`);
-      res.send(Buffer.from(arrayBuffer));
-    }
+    // Cache the audio for future requests
+    await setCachedAudio(cacheKey, audioBuffer, {
+      language,
+      textLength: truncatedText.length,
+      voiceId,
+    });
+
+    console.log(`TTS success: language=${language}, audioSize=${audioBuffer.length}`);
+    
+    res.setHeader("Content-Type", "audio/mpeg");
+    res.setHeader("Cache-Control", "public, max-age=604800"); // 7 days
+    res.setHeader("X-Cache", "MISS");
+    res.send(audioBuffer);
 
   } catch (error) {
     console.error("TTS generation error:", error);
@@ -117,7 +120,9 @@ router.post("/generate", async (req, res) => {
   }
 });
 
-// Quick TTS endpoint - returns smaller audio for faster loading
+/**
+ * Quick preview TTS - shorter text for faster loading
+ */
 router.post("/quick", async (req, res) => {
   try {
     const { text, language = "en" } = req.body;
@@ -136,9 +141,18 @@ router.post("/quick", async (req, res) => {
     }
 
     const voiceId = VOICES[language as keyof typeof VOICES] || VOICES.en;
-
-    // Only first 500 chars for quick preview
     const shortText = text.substring(0, 500);
+    
+    // Check cache
+    const cacheKey = getCacheKey(shortText, language + "_quick", voiceId);
+    const cachedAudio = await getCachedAudio(cacheKey);
+    
+    if (cachedAudio) {
+      res.setHeader("Content-Type", "audio/mpeg");
+      res.setHeader("Cache-Control", "public, max-age=604800");
+      res.setHeader("X-Cache", "HIT");
+      return res.send(cachedAudio);
+    }
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=4&output_format=mp3_22050_32`,
@@ -152,10 +166,7 @@ router.post("/quick", async (req, res) => {
         body: JSON.stringify({
           text: shortText,
           model_id: "eleven_turbo_v2_5",
-          voice_settings: {
-            stability: 0.5,
-            similarity_boost: 0.75,
-          },
+          voice_settings: AUDIO_SETTINGS,
         }),
       }
     );
@@ -167,11 +178,19 @@ router.post("/quick", async (req, res) => {
       });
     }
 
-    res.setHeader("Content-Type", "audio/mpeg");
-    res.setHeader("Cache-Control", "public, max-age=86400");
-    
     const arrayBuffer = await response.arrayBuffer();
-    res.send(Buffer.from(arrayBuffer));
+    const audioBuffer = Buffer.from(arrayBuffer);
+    
+    await setCachedAudio(cacheKey, audioBuffer, {
+      language: language + "_quick",
+      textLength: shortText.length,
+      voiceId,
+    });
+
+    res.setHeader("Content-Type", "audio/mpeg");
+    res.setHeader("Cache-Control", "public, max-age=604800");
+    res.setHeader("X-Cache", "MISS");
+    res.send(audioBuffer);
 
   } catch (error) {
     console.error("Quick TTS error:", error);
@@ -182,7 +201,17 @@ router.post("/quick", async (req, res) => {
   }
 });
 
-// Get available voices
+/**
+ * Get cache statistics
+ */
+router.get("/cache/stats", (req, res) => {
+  const stats = getCacheStats();
+  res.json(stats);
+});
+
+/**
+ * Get available voices
+ */
 router.get("/voices", async (req, res) => {
   try {
     const apiKey = process.env.ELEVENLABS_API_KEY;
@@ -209,7 +238,9 @@ router.get("/voices", async (req, res) => {
   }
 });
 
-// Test endpoint to check API key and voice availability
+/**
+ * Test endpoint to check API key and voice availability
+ */
 router.get("/test", async (req, res) => {
   try {
     const apiKey = process.env.ELEVENLABS_API_KEY;
@@ -222,7 +253,6 @@ router.get("/test", async (req, res) => {
       });
     }
 
-    // Test with a simple request
     const response = await fetch("https://api.elevenlabs.io/v1/user", {
       headers: {
         "xi-api-key": apiKey,
@@ -231,11 +261,13 @@ router.get("/test", async (req, res) => {
 
     if (response.ok) {
       const userData = await response.json();
+      const cacheStats = getCacheStats();
       return res.json({
         status: "ok",
         hasKey: true,
         subscription: userData.subscription?.tier || "unknown",
-        voices: VOICES
+        voices: VOICES,
+        cache: cacheStats,
       });
     } else {
       return res.json({

@@ -1,22 +1,27 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+/**
+ * Language Context
+ * Provides internationalization using locale files
+ */
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { 
+  Locale, 
+  SUPPORTED_LOCALES, 
+  LOCALE_NAMES, 
+  LOCALE_FLAGS,
+  getTranslation, 
+  getBrowserLocale,
+  formatDate as i18nFormatDate,
+  formatNumber as i18nFormatNumber,
+} from '@/lib/i18n';
 
-type Language = 'en' | 'pt' | 'zh';
-
-interface LanguageContextType {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
-}
-
-const translations: Record<Language, Record<string, string>> = {
+// Legacy translations for backward compatibility
+// These will be merged with the new locale files
+const legacyTranslations: Record<Locale, Record<string, string>> = {
   en: {
-    // Navigation
     'nav.home': 'home',
     'nav.writings': 'writings',
     'nav.about': 'about',
     'nav.collections': 'collections',
-    
-    // Home
     'home.welcome': 'welcome to',
     'home.tagline1': 'Building financial infrastructure for the',
     'home.tagline2': 'Global South',
@@ -30,10 +35,8 @@ const translations: Record<Language, Record<string, string>> = {
     'home.newsletter.subdesc': 'Published every week on LinkedIn.',
     'home.newsletter.cta': 'Subscribe on LinkedIn',
     'home.newsletter.subscribers': 'subscribers',
-    
-    // Writings
     'writings.title': 'Writings',
-    'writings.subtitle': 'Thoughts on Web3, stablecoins, and building for the Global South.',
+    'writings.subtitle': 'Thoughts on Web3, stablecoins, financial infrastructure, and building for the Global South.',
     'writings.search': 'Search articles...',
     'writings.filter.all': 'All',
     'writings.filter.en': 'English',
@@ -45,36 +48,25 @@ const translations: Record<Language, Record<string, string>> = {
     'writings.research': 'research',
     'writings.media': 'media',
     'writings.allTags': 'all tags',
-    
-    // About
     'about.title': 'About',
     'about.experience': 'Experience',
     'about.education': 'Education',
     'about.focus': 'Current Focus',
     'about.interests': 'Research Interests',
     'about.media': 'In the Media',
-    
-    // Collections
     'collections.title': 'Collections',
     'collections.subtitle': 'Digital collectibles and NFTs',
-    
-    // Audio Player
     'audio.listen': 'Listen to article',
     'audio.playing': 'Playing',
     'audio.paused': 'Paused',
-    
-    // Common
     'common.read': 'read',
     'common.min': 'min',
   },
   pt: {
-    // Navigation
     'nav.home': 'início',
     'nav.writings': 'escritos',
     'nav.about': 'sobre',
     'nav.collections': 'coleções',
-    
-    // Home
     'home.welcome': 'bem-vindo a',
     'home.tagline1': 'Construindo infraestrutura financeira para o',
     'home.tagline2': 'Sul Global',
@@ -88,10 +80,8 @@ const translations: Record<Language, Record<string, string>> = {
     'home.newsletter.subdesc': 'Publicado toda semana no LinkedIn.',
     'home.newsletter.cta': 'Assinar no LinkedIn',
     'home.newsletter.subscribers': 'assinantes',
-    
-    // Writings
     'writings.title': 'Escritos',
-    'writings.subtitle': 'Reflexões sobre Web3, stablecoins e construção para o Sul Global.',
+    'writings.subtitle': 'Reflexões sobre Web3, stablecoins, infraestrutura financeira e construção para o Sul Global.',
     'writings.search': 'Buscar artigos...',
     'writings.filter.all': 'Todos',
     'writings.filter.en': 'English',
@@ -103,36 +93,25 @@ const translations: Record<Language, Record<string, string>> = {
     'writings.research': 'pesquisa',
     'writings.media': 'mídia',
     'writings.allTags': 'todas as tags',
-    
-    // About
     'about.title': 'Sobre',
     'about.experience': 'Experiência',
     'about.education': 'Educação',
     'about.focus': 'Foco Atual',
     'about.interests': 'Interesses de Pesquisa',
     'about.media': 'Na Mídia',
-    
-    // Collections
     'collections.title': 'Coleções',
     'collections.subtitle': 'Colecionáveis digitais e NFTs',
-    
-    // Audio Player
     'audio.listen': 'Ouvir artigo',
     'audio.playing': 'Reproduzindo',
     'audio.paused': 'Pausado',
-    
-    // Common
     'common.read': 'leitura',
     'common.min': 'min',
   },
   zh: {
-    // Navigation
     'nav.home': '首页',
     'nav.writings': '文章',
     'nav.about': '关于',
     'nav.collections': '收藏',
-    
-    // Home
     'home.welcome': '欢迎来到',
     'home.tagline1': '为全球南方构建金融基础设施',
     'home.tagline2': '全球南方',
@@ -146,10 +125,8 @@ const translations: Record<Language, Record<string, string>> = {
     'home.newsletter.subdesc': '每周在LinkedIn发布。',
     'home.newsletter.cta': '在LinkedIn订阅',
     'home.newsletter.subscribers': '订阅者',
-    
-    // Writings
     'writings.title': '文章',
-    'writings.subtitle': '关于Web3、稳定币和全球南方建设的思考。',
+    'writings.subtitle': '关于Web3、稳定币、金融基础设施和全球南方建设的思考。',
     'writings.search': '搜索文章...',
     'writings.filter.all': '全部',
     'writings.filter.en': 'English',
@@ -161,41 +138,100 @@ const translations: Record<Language, Record<string, string>> = {
     'writings.research': '研究',
     'writings.media': '媒体',
     'writings.allTags': '所有标签',
-    
-    // About
     'about.title': '关于',
     'about.experience': '经历',
     'about.education': '教育',
     'about.focus': '当前重点',
     'about.interests': '研究兴趣',
     'about.media': '媒体报道',
-    
-    // Collections
     'collections.title': '收藏',
     'collections.subtitle': '数字收藏品和NFT',
-    
-    // Audio Player
     'audio.listen': '听文章',
     'audio.playing': '播放中',
     'audio.paused': '已暂停',
-    
-    // Common
     'common.read': '阅读',
     'common.min': '分钟',
   },
 };
 
+interface LanguageContextType {
+  language: Locale;
+  setLanguage: (lang: Locale) => void;
+  t: (key: string, fallback?: string) => string;
+  formatDate: (date: string | Date) => string;
+  formatNumber: (num: number) => string;
+  supportedLocales: typeof SUPPORTED_LOCALES;
+  localeNames: typeof LOCALE_NAMES;
+  localeFlags: typeof LOCALE_FLAGS;
+}
+
+const STORAGE_KEY = 'preferred-language';
+
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Locale>(() => {
+    // Try to get from localStorage first
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored && SUPPORTED_LOCALES.includes(stored as Locale)) {
+        return stored as Locale;
+      }
+    }
+    // Fall back to browser preference
+    return getBrowserLocale();
+  });
 
-  const t = (key: string): string => {
-    return translations[language][key] || key;
-  };
+  // Persist language preference
+  const setLanguage = useCallback((lang: Locale) => {
+    setLanguageState(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEY, lang);
+    }
+  }, []);
+
+  // Update document lang attribute
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = language;
+    }
+  }, [language]);
+
+  // Translation function that checks both legacy and new locale files
+  const t = useCallback((key: string, fallback?: string): string => {
+    // First check legacy translations for backward compatibility
+    const legacyValue = legacyTranslations[language][key];
+    if (legacyValue) {
+      return legacyValue;
+    }
+
+    // Then check new locale files
+    return getTranslation(language, key, fallback);
+  }, [language]);
+
+  // Format date according to current locale
+  const formatDate = useCallback((date: string | Date): string => {
+    return i18nFormatDate(date, language);
+  }, [language]);
+
+  // Format number according to current locale
+  const formatNumber = useCallback((num: number): string => {
+    return i18nFormatNumber(num, language);
+  }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider 
+      value={{ 
+        language, 
+        setLanguage, 
+        t, 
+        formatDate,
+        formatNumber,
+        supportedLocales: SUPPORTED_LOCALES,
+        localeNames: LOCALE_NAMES,
+        localeFlags: LOCALE_FLAGS,
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );
@@ -208,3 +244,7 @@ export function useLanguage() {
   }
   return context;
 }
+
+// Re-export types for convenience
+export type { Locale };
+export { SUPPORTED_LOCALES, LOCALE_NAMES, LOCALE_FLAGS };
