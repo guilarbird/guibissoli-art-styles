@@ -94,7 +94,7 @@ export const articles: Article[] = [
     language: 'pt',
     category: 'article',
     featured: true,
-    url: 'https://www.linkedin.com/pulse/o-que-vem-depois-da-revolu%C3%A7%C3%A3o-das-stablecoins-e-como-bissoli',
+    url: 'https://www.linkedin.com/pulse/o-que-vem-depois-da-revolu%C3%A7%C3%A3o-das-stablecoins-e-como-mundo-bissoli-l1puf',
     publication: 'LinkedIn Newsletter',
     heroImage: '/images/article-stablecoins-hero.png'
   },
@@ -107,7 +107,7 @@ export const articles: Article[] = [
     tags: ['stablecoins', 'fx', 'remittances'],
     language: 'pt',
     category: 'article',
-    url: 'https://www.linkedin.com/pulse/como-stablecoins-est%C3%A3o-transformando-o-mercado-de-c%C3%A2mbio-bissoli',
+    url: 'https://www.linkedin.com/pulse/como-stablecoins-est%C3%A3o-transformando-o-mercado-de-c%C3%A2mbio-bissoli-p577f',
     publication: 'LinkedIn Newsletter'
   },
   {
@@ -119,7 +119,7 @@ export const articles: Article[] = [
     tags: ['coins-xyz', 'global-south', 'africa', 'brazil'],
     language: 'pt',
     category: 'article',
-    url: 'https://www.linkedin.com/pulse/coinsxyz-brasil-nig%C3%A9ria-e-o-sul-global-em-movimento-guilherme-bissoli',
+    url: 'https://www.linkedin.com/pulse/coinsxyz-brasil-nig%C3%A9ria-e-o-sul-global-em-movimento-guilherme-bissoli-6gkkf',
     publication: 'LinkedIn Newsletter'
   },
   {
@@ -131,7 +131,7 @@ export const articles: Article[] = [
     tags: ['coins-xyz', 'regulation', 'scaling', 'emerging-markets'],
     language: 'pt',
     category: 'article',
-    url: 'https://www.linkedin.com/pulse/da-filipinas-ao-brasil-como-estamos-escalando-um-exchange-bissoli',
+    url: 'https://www.linkedin.com/pulse/da-filipinas-ao-brasil-como-estamos-escalando-um-exchange-bissoli-uejrf',
     publication: 'LinkedIn Newsletter'
   },
   {
@@ -143,7 +143,7 @@ export const articles: Article[] = [
     tags: ['stablecoins', 'global-south', 'financial-inclusion'],
     language: 'pt',
     category: 'article',
-    url: 'https://www.linkedin.com/pulse/o-futuro-das-stablecoins-e-o-sul-global-redefinindo-fluxo-bissoli',
+    url: 'https://www.linkedin.com/pulse/o-futuro-das-stablecoins-e-sul-global-redefinindo-fluxo-bissoli-dynmf',
     publication: 'LinkedIn Newsletter'
   },
   {
@@ -156,7 +156,7 @@ export const articles: Article[] = [
     language: 'pt',
     category: 'article',
     featured: true,
-    url: 'https://www.linkedin.com/pulse/construindo-coinsxyz-li%C3%A7%C3%B5es-desafios-e-nossa-vis%C3%A3o-para-bissoli',
+    url: 'https://www.linkedin.com/pulse/construindo-coinsxyz-li%C3%A7%C3%B5es-desafios-e-nossa-vis%C3%A3o-para-bissoli-a3jyf',
     publication: 'LinkedIn Newsletter'
   },
   

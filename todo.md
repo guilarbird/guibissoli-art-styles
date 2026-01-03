@@ -45,3 +45,5 @@
 - [x] Corrigir bug do áudio TTS cortando no meio em português (aumentado limite de 2500 para 5000 chars)
 - [x] Agendar produção de 100 estilos de arte (The Block, Bankless, Laura Shin, Pomp, Gary Vee, tech) - agendado
 - [x] Corrigir redirect quebrado do artigo "Pix e Blockchain" no LinkedIn
+- [x] Corrigir link quebrado do artigo "O que vem depois da revolução das stablecoins"
+- [x] Corrigir links quebrados: Stablecoins câmbio, Coins.xyz Brasil Nigéria, Filipinas ao Brasil, Futuro Stablecoins Sul Global, Construindo Coins.xyz
