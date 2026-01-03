@@ -36,7 +36,8 @@ router.post("/generate", async (req, res) => {
     const voiceId = VOICES[language as keyof typeof VOICES] || VOICES.en;
 
     // Truncate text to reasonable length (Eleven Labs has limits)
-    const truncatedText = text.substring(0, 2500);
+    // Eleven Labs supports up to 5000 chars per request
+    const truncatedText = text.substring(0, 5000);
 
     console.log(`TTS streaming request: language=${language}, voiceId=${voiceId}, textLength=${truncatedText.length}`);
 
