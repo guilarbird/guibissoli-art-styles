@@ -44,3 +44,4 @@
 - [x] Criar estilo de arte para posts (0N1 Force + Dexter + NYT style) - "Forensic Finance"
 - [x] Corrigir bug do áudio TTS cortando no meio em português (aumentado limite de 2500 para 5000 chars)
 - [x] Agendar produção de 100 estilos de arte (The Block, Bankless, Laura Shin, Pomp, Gary Vee, tech) - agendado
+- [x] Corrigir redirect quebrado do artigo "Pix e Blockchain" no LinkedIn

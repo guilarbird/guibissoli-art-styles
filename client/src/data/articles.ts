@@ -81,7 +81,7 @@ export const articles: Article[] = [
     tags: ['pix', 'blockchain', 'fintech', 'brazil'],
     language: 'pt',
     category: 'article',
-    url: 'https://www.linkedin.com/pulse/pix-blockchain-duas-infraestruturas-que-est%C3%A3o-redesenhando-bissoli',
+    url: 'https://www.linkedin.com/pulse/pix-e-blockchain-duas-infraestruturas-que-est%C3%A3o-o-sistema-bissoli-jyozf',
     publication: 'LinkedIn Newsletter'
   },
   {
