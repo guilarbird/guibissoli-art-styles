@@ -41,6 +41,10 @@ const translations: Record<Language, Record<string, string>> = {
     'writings.filter.zh': '中文',
     'writings.readMore': 'Read article',
     'writings.noResults': 'No articles found matching your criteria.',
+    'writings.articles': 'articles',
+    'writings.research': 'research',
+    'writings.media': 'media',
+    'writings.allTags': 'all tags',
     
     // About
     'about.title': 'About',
@@ -95,6 +99,10 @@ const translations: Record<Language, Record<string, string>> = {
     'writings.filter.zh': '中文',
     'writings.readMore': 'Ler artigo',
     'writings.noResults': 'Nenhum artigo encontrado com esses critérios.',
+    'writings.articles': 'artigos',
+    'writings.research': 'pesquisa',
+    'writings.media': 'mídia',
+    'writings.allTags': 'todas as tags',
     
     // About
     'about.title': 'Sobre',
@@ -149,6 +157,10 @@ const translations: Record<Language, Record<string, string>> = {
     'writings.filter.zh': '中文',
     'writings.readMore': '阅读文章',
     'writings.noResults': '没有找到符合条件的文章。',
+    'writings.articles': '文章',
+    'writings.research': '研究',
+    'writings.media': '媒体',
+    'writings.allTags': '所有标签',
     
     // About
     'about.title': '关于',

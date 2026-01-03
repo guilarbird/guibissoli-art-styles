@@ -36,3 +36,7 @@
 - [x] Corrigir tradução chinês no corpo do artigo Tick Size
 - [x] Implementar streaming de áudio Eleven Labs para velocidade
 - [x] Corrigir voz PT que ainda está falhando (usando turbo model)
+- [x] Adicionar mídia: comentário UOL
+- [x] Adicionar mídia: artigo Exame Future of Money (já estava adicionado)
+- [x] Corrigir mistura de idiomas PT/EN - implementar locales consistente
+- [x] Adicionar AB Token RWA Report ao tracking de pesquisas

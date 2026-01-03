@@ -281,6 +281,32 @@ export const articles: Article[] = [
     publication: 'Old Fashion Research'
   },
   
+  // ABToken Reports
+  {
+    slug: 'abtoken-rwa-manual',
+    title: 'Manual RWA: Tokenização de Ativos do Mundo Real',
+    excerpt: 'Nos bastidores da transformação digital do sistema financeiro, a tokenização de ativos do mundo real ganha cada vez mais força.',
+    date: '2025.10.01',
+    readTime: '20 min',
+    tags: ['rwa', 'tokenization', 'abtoken', 'regulation'],
+    language: 'pt',
+    category: 'research',
+    url: 'https://abtoken.com.br/wp-content/uploads/2025/10/ABTOKEN-Manual-RWA1.pdf',
+    publication: 'ABToken'
+  },
+  {
+    slug: 'abtoken-tokenizacao-eficiencia',
+    title: 'A Tokenização como Veículo de Eficiência Operacional',
+    excerpt: 'Transformando processos operacionais com automação, rastreabilidade e transparência, gerando resultados concretos para empresas e investidores.',
+    date: '2025.07.01',
+    readTime: '15 min',
+    tags: ['tokenization', 'efficiency', 'abtoken', 'infrastructure'],
+    language: 'pt',
+    category: 'research',
+    url: 'https://abtoken.com.br/wp-content/uploads/2025/07/ABTOKEN-Tokenizacao-como-veiculo-de-eficiencia-operacional-.pdf',
+    publication: 'ABToken'
+  },
+
   // Academic
   {
     slug: 'credit-spreads-real-economic-activity',
@@ -311,6 +337,18 @@ export const articles: Article[] = [
     publication: 'Valor Econômico'
   },
   {
+    slug: 'uol-bitcoin-hackeado',
+    title: 'Bitcoin pode ser hackeado? Especialistas explicam por que isso é improvável',
+    excerpt: '"Para tentar algo assim hoje, seria necessário controlar uma infraestrutura de mineração e consumo de energia comparável à de países inteiros."',
+    date: '2025.12.22',
+    readTime: '5 min',
+    tags: ['bitcoin', 'security', 'mining', 'interview'],
+    language: 'pt',
+    category: 'media',
+    url: 'https://economia.uol.com.br/noticias/redacao/2025/12/22/bitcoin-pode-ser-hackeado.htm',
+    publication: 'UOL Economia'
+  },
+  {
     slug: 'coinsxyz-launches-brazil',
     title: 'Coins.xyz Launches in Brazil, Offers Game-Changing Solution for Foreign Businesses',
     excerpt: 'Former head of fiat at Binance leads Brazil operations for Coins.xyz infrastructure platform.',
@@ -321,6 +359,18 @@ export const articles: Article[] = [
     category: 'media',
     url: 'https://www.investing.com/news/cryptocurrency-news/coinsxyz-launches-in-brazil-offers-gamechanging-solution-for-foreign-businesses-3817362',
     publication: 'Investing.com'
+  },
+  {
+    slug: 'livecoins-abtoken-coins',
+    title: 'Coins.xyz se filia à ABToken e reforça compromisso com o desenvolvimento regulado da tokenização no Brasil',
+    excerpt: 'A Coins.xyz é uma plataforma global de criptoativos que conecta pessoas e empresas ao ecossistema digital de forma segura.',
+    date: '2025.10.15',
+    readTime: '3 min',
+    tags: ['coins-xyz', 'abtoken', 'tokenization', 'regulation'],
+    language: 'pt',
+    category: 'media',
+    url: 'https://livecoins.com.br/coins-xyz-se-filia-a-abtoken-e-reforca-compromisso-com-o-desenvolvimento-regulado-da-tokenizacao-no-brasil/',
+    publication: 'Livecoins'
   }
 ];
 

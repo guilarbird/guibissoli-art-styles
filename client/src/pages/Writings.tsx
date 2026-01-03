@@ -61,7 +61,7 @@ export default function Writings() {
             </h1>
             
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Thoughts on Web3, stablecoins, financial infrastructure, and building for the Global South.
+              {t('writings.subtitle')}
             </p>
           </motion.div>
 
@@ -82,7 +82,7 @@ export default function Writings() {
                 }`}
               >
                 <div className="text-2xl font-bold">{articles.length}</div>
-                <div className="text-sm font-mono opacity-70">all</div>
+                <div className="text-sm font-mono opacity-70">{t('writings.filter.all').toLowerCase()}</div>
               </button>
               <button
                 onClick={() => setCategoryFilter('article')}
@@ -96,7 +96,7 @@ export default function Writings() {
                   <Pen size={18} />
                   <span className="text-2xl font-bold">{articlesCount}</span>
                 </div>
-                <div className="text-sm font-mono opacity-70">articles</div>
+                <div className="text-sm font-mono opacity-70">{t('writings.articles')}</div>
               </button>
               <button
                 onClick={() => setCategoryFilter('research')}
@@ -110,7 +110,7 @@ export default function Writings() {
                   <FlaskConical size={18} />
                   <span className="text-2xl font-bold">{researchCount}</span>
                 </div>
-                <div className="text-sm font-mono opacity-70">research</div>
+                <div className="text-sm font-mono opacity-70">{t('writings.research')}</div>
               </button>
               <button
                 onClick={() => setCategoryFilter('media')}
@@ -124,7 +124,7 @@ export default function Writings() {
                   <Newspaper size={18} />
                   <span className="text-2xl font-bold">{mediaCount}</span>
                 </div>
-                <div className="text-sm font-mono opacity-70">media</div>
+                <div className="text-sm font-mono opacity-70">{t('writings.media')}</div>
               </button>
             </div>
           </motion.div>
@@ -204,7 +204,7 @@ export default function Writings() {
                 onClick={() => setSelectedTag(null)}
                 className={`tag ${!selectedTag ? 'bg-primary/20 text-primary border-primary' : ''}`}
               >
-                all tags
+                {t('writings.allTags')}
               </button>
               {allTags.slice(0, 12).map((tag) => (
                 <button
