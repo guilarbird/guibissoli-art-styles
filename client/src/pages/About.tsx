@@ -133,6 +133,7 @@ export default function About() {
                 <p>
                   My work sits at the intersection of <span className="text-primary">technology</span>,{' '}
                   <span className="text-accent">finance</span>, and <span className="text-terminal-green">regulation</span>. 
+                  Background in <span className="text-primary">econometrics</span>, <span className="text-accent">FX/trading</span>, and capital markets.
                   After participating in <span className="text-primary">50+ Web3 deals</span> across multiple market cycles, 
                   I've learned that the best infrastructure is the one you don't notice—it just works.
                 </p>
@@ -340,15 +341,16 @@ export default function About() {
               <div className="flex flex-wrap gap-2">
                 {[
                   'Exchange Architecture',
+                  'Market Microstructure',
+                  'Trading & Order Flow',
+                  'FX & Cross-border Payments',
                   'Liquidity Providers',
                   'Stablecoins',
                   'Real World Assets (RWA)',
-                  'Cross-border Payments',
+                  'Econometrics',
                   'Regulatory Frameworks',
                   'Financial Inclusion',
                   'PIX Infrastructure',
-                  'Cybersecurity',
-                  'GameFi',
                 ].map((topic) => (
                   <span key={topic} className="tag">{topic}</span>
                 ))}

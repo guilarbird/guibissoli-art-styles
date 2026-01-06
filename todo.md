@@ -59,3 +59,13 @@
 - [x] Adicionar seção Binance (fiat integrations, Brazil expansion) - em construção
 - [x] Organizar seção Coins.xyz (Global South thesis, current work)
 - [x] Implementar indicadores elegantes de "em construção" para seções incompletas
+- [ ] Criar repositório GitHub para o site
+- [ ] Usar imagens do repo compartilhado (manus.im/share/n2FGFm3M47pfEex54bdbJw)
+- [x] Auditoria: verificar todos os links externos e internos
+- [x] Auditoria: identificar detalhes amadores e inconsistências
+- [x] Auditoria: avaliar posicionamento como especialista (regulação, Web3, stablecoins, FX, trading, econometria)
+- [x] Auditoria: verificar alinhamento com LinkedIn newsletter cross-posting
+- [x] Corrigir título do site de "Coins Brazil Retrospective 2025" para profissional
+- [x] Atualizar bio com Trading, FX, Econometria
+- [x] Expandir Research Interests com novas áreas de expertise
+- [x] Ajustar meta tags e SEO (Open Graph, Twitter cards, imagem OG)
