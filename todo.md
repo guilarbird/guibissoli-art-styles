@@ -69,3 +69,5 @@
 - [x] Atualizar bio com Trading, FX, Econometria
 - [x] Expandir Research Interests com novas áreas de expertise
 - [x] Ajustar meta tags e SEO (Open Graph, Twitter cards, imagem OG)
+- [x] Integrar imagens do repositório guibissoli-art-styles ao site
+- [x] Atualizar thumbnails e hero images dos artigos com novas imagens
