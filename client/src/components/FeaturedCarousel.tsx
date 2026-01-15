@@ -43,7 +43,7 @@ const featuredArticles: FeaturedArticle[] = [
       pt: 'Por que o tick size é determinante central da eficiência do mercado spot de stablecoins e como a calibração de microestrutura pode reduzir dependência de OTC.',
       zh: '为什么 tick size 是稳定币现货市场效率的核心决定因素，以及微观结构校准如何减少对 OTC 的依赖。',
     },
-    image: '/images/art-styles/data_viz/data_viz_01.png',
+    image: '/images/styles/data_viz/style_data_viz_001.png',
     date: '2026-01-15',
     readTime: 8,
     tags: ['microstructure', 'fx', 'stablecoins', 'regulation'],

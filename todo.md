@@ -72,3 +72,5 @@
 - [x] Integrar imagens do repositório guibissoli-art-styles ao site
 - [x] Atualizar thumbnails e hero images dos artigos com novas imagens
 - [x] Publicar artigo "Microestrutura de Mercado como Fundamento do FX Digital no Brasil" em 3 idiomas (PT/EN/ZH)
+- [x] Trocar branding "gui.dev" por guibissoli
+- [x] Corrigir imagem do artigo Microstructure que não está carregando

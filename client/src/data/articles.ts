@@ -39,8 +39,8 @@ export const articles: Article[] = [
     category: 'article',
     featured: true,
     url: '/writings/microstructure-fx-digital',
-    publication: 'gui.dev',
-    heroImage: '/images/art-styles/data_viz/data_viz_01.png'
+    publication: 'guibissoli',
+    heroImage: '/images/styles/data_viz/style_data_viz_001.png'
   },
   {
     slug: 'tick-size-microestrutura',
@@ -53,7 +53,7 @@ export const articles: Article[] = [
     category: 'article',
     featured: true,
     url: '/writings/tick-size-microestrutura',
-    publication: 'gui.dev',
+    publication: 'guibissoli',
     heroImage: '/images/article-tick-size-hero.png'
   },
 

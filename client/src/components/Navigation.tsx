@@ -40,7 +40,7 @@ export default function Navigation() {
           <Link href="/" className="flex items-center gap-2 group">
             <span className="text-primary font-mono text-lg">{'>'}</span>
             <span className="font-display font-semibold text-lg tracking-tight">
-              gui<span className="text-primary">.dev</span>
+              gui<span className="text-primary">bissoli</span>
             </span>
             <span className="cursor-blink text-primary font-mono">_</span>
           </Link>

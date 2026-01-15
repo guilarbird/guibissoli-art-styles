@@ -215,7 +215,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <span className="text-primary font-mono">{'>'}</span>
-              <span className="font-display font-semibold">gui<span className="text-primary">.dev</span></span>
+              <span className="font-display font-semibold">gui<span className="text-primary">bissoli</span></span>
             </div>
             
             <div className="flex items-center gap-6 text-sm text-muted-foreground">

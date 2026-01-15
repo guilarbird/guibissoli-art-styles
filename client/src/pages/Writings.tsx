@@ -330,7 +330,7 @@ export default function Writings() {
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="meta-mono text-muted-foreground">
-              © {new Date().getFullYear()} gui.dev
+              © {new Date().getFullYear()} guibissoli
             </p>
             <div className="flex items-center gap-6">
               <a href="https://x.com/guinicoli" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">

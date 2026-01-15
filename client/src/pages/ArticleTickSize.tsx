@@ -665,7 +665,7 @@ export default function ArticleTickSize() {
       <footer className="border-t border-border py-8 mt-12">
         <div className="max-w-4xl mx-auto px-8 text-center">
           <p className="text-sm text-muted-foreground meta-mono">
-            © 2026 gui.dev — {content.footer[lang]}
+            © 2026 guibissoli — {content.footer[lang]}
           </p>
         </div>
       </footer>
