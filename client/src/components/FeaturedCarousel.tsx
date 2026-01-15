@@ -31,6 +31,25 @@ interface FeaturedArticle {
 
 const featuredArticles: FeaturedArticle[] = [
   {
+    id: '0',
+    slug: 'microstructure-fx-digital',
+    title: {
+      en: 'Market Microstructure as the Foundation of Digital FX in Brazil',
+      pt: 'Microestrutura de Mercado como Fundamento do FX Digital no Brasil',
+      zh: '市场微观结构作为巴西数字 FX 的基础',
+    },
+    excerpt: {
+      en: 'Why tick size is a central determinant of stablecoin spot market efficiency and how microstructure calibration can reduce OTC dependence.',
+      pt: 'Por que o tick size é determinante central da eficiência do mercado spot de stablecoins e como a calibração de microestrutura pode reduzir dependência de OTC.',
+      zh: '为什么 tick size 是稳定币现货市场效率的核心决定因素，以及微观结构校准如何减少对 OTC 的依赖。',
+    },
+    image: '/images/art-styles/data_viz/data_viz_01.png',
+    date: '2026-01-15',
+    readTime: 8,
+    tags: ['microstructure', 'fx', 'stablecoins', 'regulation'],
+    isInternal: true,
+  },
+  {
     id: '1',
     slug: 'tick-size-microestrutura',
     title: {

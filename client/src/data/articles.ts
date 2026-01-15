@@ -29,6 +29,20 @@ export const articles: Article[] = [
   
   // Canonical (hosted on site)
   {
+    slug: 'microstructure-fx-digital',
+    title: 'Microestrutura de Mercado como Fundamento do FX Digital no Brasil',
+    excerpt: 'Por que o tick size é determinante central da eficiência do mercado spot de stablecoins e como a calibração de microestrutura pode reduzir dependência de OTC.',
+    date: '2026.01.15',
+    readTime: '8 min',
+    tags: ['microestrutura', 'fx', 'stablecoins', 'tick-size', 'otc', 'regulação'],
+    language: 'pt',
+    category: 'article',
+    featured: true,
+    url: '/writings/microstructure-fx-digital',
+    publication: 'gui.dev',
+    heroImage: '/images/art-styles/data_viz/data_viz_01.png'
+  },
+  {
     slug: 'tick-size-microestrutura',
     title: 'Tick Size, Microestrutura e Liquidez Funcional',
     excerpt: 'Como ajustes aparentemente técnicos redefinem o papel do mercado spot em stablecoins. Uma análise de microestrutura de mercado para reguladores, investidores e policy makers.',

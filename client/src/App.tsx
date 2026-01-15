@@ -10,6 +10,7 @@ import Writings from "./pages/Writings";
 import About from "./pages/About";
 import Article from "./pages/Article";
 import ArticleTickSize from "./pages/ArticleTickSize";
+import ArticleMicrostructure from "./pages/ArticleMicrostructure";
 import Collections from "./pages/Collections";
 import Chapter from "./pages/Chapter";
 function Router() {
@@ -19,6 +20,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/writings"} component={Writings} />
       <Route path={"/writings/tick-size-microestrutura"} component={ArticleTickSize} />
+      <Route path={"/writings/microstructure-fx-digital"} component={ArticleMicrostructure} />
       <Route path={"/writings/:slug"} component={Article} />
       <Route path={"/about"} component={About} />
       <Route path={"/collections"} component={Collections} />
