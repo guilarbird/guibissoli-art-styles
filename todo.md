@@ -74,3 +74,4 @@
 - [x] Publicar artigo "Microestrutura de Mercado como Fundamento do FX Digital no Brasil" em 3 idiomas (PT/EN/ZH)
 - [x] Trocar branding "gui.dev" por guibissoli
 - [x] Corrigir imagem do artigo Microstructure que não está carregando
+- [x] Corrigir SEO da página /writings - adicionar palavras-chave e meta tags

@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { Search, ExternalLink, Globe, Pen, FlaskConical, Newspaper } from 'lucide-react';
@@ -15,7 +16,7 @@ type LanguageFilter = 'all' | 'en' | 'pt';
 type CategoryFilter = 'all' | 'article' | 'research' | 'media';
 
 export default function Writings() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [languageFilter, setLanguageFilter] = useState<LanguageFilter>('all');
@@ -39,8 +40,43 @@ export default function Writings() {
 
   const isExternalUrl = (url: string) => url.startsWith('http');
 
+  // SEO meta content by language
+  const seoContent = {
+    pt: {
+      title: 'Escritos | Guilherme Bissoli - Web3, Stablecoins & Infraestrutura Financeira',
+      description: 'Artigos, pesquisas e análises sobre Web3, stablecoins, microestrutura de mercado, regulação financeira e infraestrutura cripto para o Sul Global. Por Guilherme Bissoli, Managing Partner da Coins.xyz Brasil.',
+      keywords: 'Web3, stablecoins, criptomoedas, blockchain, microestrutura de mercado, tick size, OTC, regulação financeira, Banco Central, infraestrutura financeira, Sul Global, Brasil, FX digital, tokenização, RWA, Coins.xyz',
+    },
+    en: {
+      title: 'Writings | Guilherme Bissoli - Web3, Stablecoins & Financial Infrastructure',
+      description: 'Articles, research and analysis on Web3, stablecoins, market microstructure, financial regulation and crypto infrastructure for the Global South. By Guilherme Bissoli, Managing Partner at Coins.xyz Brazil.',
+      keywords: 'Web3, stablecoins, cryptocurrency, blockchain, market microstructure, tick size, OTC, financial regulation, Central Bank, financial infrastructure, Global South, Brazil, digital FX, tokenization, RWA, Coins.xyz',
+    },
+    zh: {
+      title: '文章 | Guilherme Bissoli - Web3、稳定币与金融基础设施',
+      description: '关于Web3、稳定币、市场微观结构、金融监管和全球南方加密基础设施的文章、研究和分析。作者：Guilherme Bissoli，Coins.xyz巴西管理合伙人。',
+      keywords: 'Web3, 稳定币, 加密货币, 区块链, 市场微观结构, tick size, OTC, 金融监管, 中央银行, 金融基础设施, 全球南方, 巴西, 数字外汇, 代币化, RWA, Coins.xyz',
+    },
+  };
+
+  const currentSeo = seoContent[language] || seoContent.en;
+
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
+      <Helmet>
+        <title>{currentSeo.title}</title>
+        <meta name="description" content={currentSeo.description} />
+        <meta name="keywords" content={currentSeo.keywords} />
+        <meta property="og:title" content={currentSeo.title} />
+        <meta property="og:description" content={currentSeo.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://guibissoli.com/writings" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={currentSeo.title} />
+        <meta name="twitter:description" content={currentSeo.description} />
+        <meta name="author" content="Guilherme Bissoli" />
+        <link rel="canonical" href="https://guibissoli.com/writings" />
+      </Helmet>
       <Navigation />
       
       <main className="pt-24 pb-20">
