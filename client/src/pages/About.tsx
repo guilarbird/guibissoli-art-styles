@@ -3,6 +3,7 @@
  * Bio, experience, education, and contact info
  */
 
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ExternalLink, MapPin, Briefcase, Mail, Twitter, Linkedin, Github, GraduationCap, Award, ArrowRight, Construction } from 'lucide-react';
 import { Link } from 'wouter';
@@ -10,10 +11,46 @@ import Navigation from '@/components/Navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  // SEO meta content by language
+  const seoContent = {
+    pt: {
+      title: 'Sobre | Guilherme Bissoli - Web3, Stablecoins & Infraestrutura Financeira',
+      description: 'Conheça Guilherme Bissoli: ex-Binance, Managing Partner da Coins.xyz Brasil, especialista em Web3, stablecoins e infraestrutura financeira para mercados emergentes.',
+      keywords: 'Guilherme Bissoli, sobre, biografia, Coins.xyz, Binance, Web3, stablecoins, infraestrutura financeira, Brasil, Sul Global, criptomoedas',
+    },
+    en: {
+      title: 'About | Guilherme Bissoli - Web3, Stablecoins & Financial Infrastructure',
+      description: 'Meet Guilherme Bissoli: ex-Binance, Managing Partner at Coins.xyz Brazil, specialist in Web3, stablecoins and financial infrastructure for emerging markets.',
+      keywords: 'Guilherme Bissoli, about, biography, Coins.xyz, Binance, Web3, stablecoins, financial infrastructure, Brazil, Global South, cryptocurrency',
+    },
+    zh: {
+      title: '关于 | Guilherme Bissoli - Web3、稳定币与金融基础设施',
+      description: '了解Guilherme Bissoli：前币安员工，Coins.xyz巴西管理合伙人，Web3、稳定币和新兴市场金融基础设施专家。',
+      keywords: 'Guilherme Bissoli, 关于, 传记, Coins.xyz, 币安, Web3, 稳定币, 金融基础设施, 巴西, 全球南方, 加密货币',
+    },
+  };
+
+  const currentSeo = seoContent[language] || seoContent.en;
   
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
+      <Helmet>
+        <title>{currentSeo.title}</title>
+        <meta name="description" content={currentSeo.description} />
+        <meta name="keywords" content={currentSeo.keywords} />
+        <meta property="og:title" content={currentSeo.title} />
+        <meta property="og:description" content={currentSeo.description} />
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content="https://guibissoli.com/about" />
+        <meta property="og:image" content="https://guibissoli.com/images/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={currentSeo.title} />
+        <meta name="twitter:description" content={currentSeo.description} />
+        <meta name="author" content="Guilherme Bissoli" />
+        <link rel="canonical" href="https://guibissoli.com/about" />
+      </Helmet>
       <Navigation />
       
       <main className="pt-24 pb-20">

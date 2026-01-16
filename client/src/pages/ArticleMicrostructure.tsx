@@ -3,6 +3,7 @@
  * Design: NYT Editorial Style - hero image, elegant typography
  * Trilingual support: PT, EN, ZH
  */
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Share2, Linkedin, Twitter, Headphones } from 'lucide-react';
 import { Link } from 'wouter';
@@ -167,6 +168,27 @@ export default function ArticleMicrostructure() {
   const { language } = useLanguage();
   const lang = language as 'pt' | 'en' | 'zh';
 
+  // SEO meta content by language
+  const seoContent = {
+    pt: {
+      title: 'Microestrutura de Mercado como Fundamento do FX Digital no Brasil | Guilherme Bissoli',
+      description: 'Por que o tick size é determinante central da eficiência do mercado spot de stablecoins e como a calibração de microestrutura pode reduzir dependência de OTC.',
+      keywords: 'microestrutura de mercado, FX digital, stablecoins, tick size, OTC, spread, order book, Banco Central, Resolução 521, USDT, BRL, Brasil',
+    },
+    en: {
+      title: 'Market Microstructure as the Foundation of Digital FX in Brazil | Guilherme Bissoli',
+      description: 'Why tick size is a central determinant of stablecoin spot market efficiency and how microstructure calibration can reduce OTC dependence.',
+      keywords: 'market microstructure, digital FX, stablecoins, tick size, OTC, spread, order book, Central Bank, Resolution 521, USDT, BRL, Brazil',
+    },
+    zh: {
+      title: '市场微观结构作为巴西数字外汇的基础 | Guilherme Bissoli',
+      description: '为什么tick size是稳定币现货市场效率的中心决定因素，以及微观结构校准如何减少对OTC的依赖。',
+      keywords: '市场微观结构, 数字外汇, 稳定币, tick size, OTC, 价差, 订单簿, 中央银行, 521号决议, USDT, BRL, 巴西',
+    },
+  };
+
+  const currentSeo = seoContent[lang] || seoContent.en;
+
   // Get article text for current language
   const getArticleText = () => {
     switch (lang) {
@@ -178,6 +200,60 @@ export default function ArticleMicrostructure() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
+      <Helmet>
+        <title>{currentSeo.title}</title>
+        <meta name="description" content={currentSeo.description} />
+        <meta name="keywords" content={currentSeo.keywords} />
+        <meta property="og:title" content={currentSeo.title} />
+        <meta property="og:description" content={currentSeo.description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://guibissoli.com/writings/microstructure-fx-digital" />
+        <meta property="og:image" content="https://guibissoli.com/images/art-styles/data_viz/data_viz_1.png" />
+        <meta property="article:published_time" content="2026-01-15" />
+        <meta property="article:author" content="Guilherme Bissoli" />
+        <meta property="article:tag" content="microestrutura" />
+        <meta property="article:tag" content="fx" />
+        <meta property="article:tag" content="stablecoins" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={currentSeo.title} />
+        <meta name="twitter:description" content={currentSeo.description} />
+        <meta name="twitter:image" content="https://guibissoli.com/images/art-styles/data_viz/data_viz_1.png" />
+        <meta name="author" content="Guilherme Bissoli" />
+        <link rel="canonical" href="https://guibissoli.com/writings/microstructure-fx-digital" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": currentSeo.title,
+            "description": currentSeo.description,
+            "image": "https://guibissoli.com/images/art-styles/data_viz/data_viz_1.png",
+            "datePublished": "2026-01-15",
+            "dateModified": "2026-01-15",
+            "author": {
+              "@type": "Person",
+              "name": "Guilherme Bissoli",
+              "url": "https://guibissoli.com/about",
+              "jobTitle": "Managing Partner",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Coins.xyz Brasil"
+              }
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Guilherme Bissoli",
+              "url": "https://guibissoli.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://guibissoli.com/writings/microstructure-fx-digital"
+            },
+            "keywords": currentSeo.keywords,
+            "articleSection": "Finance",
+            "inLanguage": lang === 'pt' ? 'pt-BR' : lang === 'zh' ? 'zh-CN' : 'en-US'
+          })}
+        </script>
+      </Helmet>
       <Navigation />
 
       {/* Hero Section */}

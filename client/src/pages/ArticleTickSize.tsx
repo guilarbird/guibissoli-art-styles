@@ -3,6 +3,7 @@
  * Design: NYT Editorial Style - hero image, elegant typography
  * Trilingual support: PT, EN, ZH
  */
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Share2, Linkedin, Twitter, Headphones } from 'lucide-react';
 import { Link } from 'wouter';
@@ -382,8 +383,83 @@ export default function ArticleTickSize() {
   const { language } = useLanguage();
   const lang = language as 'pt' | 'en' | 'zh';
 
+  // SEO meta content by language
+  const seoContent = {
+    pt: {
+      title: 'Tick Size, Microestrutura e Liquidez Funcional | Guilherme Bissoli',
+      description: 'Como ajustes aparentemente técnicos redefinem o papel do mercado spot em stablecoins. Uma análise de microestrutura de mercado para reguladores, investidores e policy makers.',
+      keywords: 'tick size, microestrutura de mercado, stablecoins, liquidez, OTC, spread, order book, regulação financeira, Banco Central, USDT, BRL, FX digital',
+    },
+    en: {
+      title: 'Tick Size, Microstructure and Functional Liquidity | Guilherme Bissoli',
+      description: 'How seemingly technical adjustments redefine the role of the spot market in stablecoins. A market microstructure analysis for regulators, investors and policy makers.',
+      keywords: 'tick size, market microstructure, stablecoins, liquidity, OTC, spread, order book, financial regulation, Central Bank, USDT, BRL, digital FX',
+    },
+    zh: {
+      title: 'Tick Size、微观结构与功能性流动性 | Guilherme Bissoli',
+      description: '看似技术性的调整如何重新定义稳定币现货市场的角色。一份面向监管机构、投资者和政策制定者的市场微观结构分析。',
+      keywords: 'tick size, 市场微观结构, 稳定币, 流动性, OTC, 价差, 订单簿, 金融监管, 中央银行, USDT, BRL, 数字外汇',
+    },
+  };
+
+  const currentSeo = seoContent[lang] || seoContent.en;
+
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{currentSeo.title}</title>
+        <meta name="description" content={currentSeo.description} />
+        <meta name="keywords" content={currentSeo.keywords} />
+        <meta property="og:title" content={currentSeo.title} />
+        <meta property="og:description" content={currentSeo.description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://guibissoli.com/writings/tick-size-microestrutura" />
+        <meta property="og:image" content="https://guibissoli.com/images/article-tick-size-hero.png" />
+        <meta property="article:published_time" content="2026-01-02" />
+        <meta property="article:author" content="Guilherme Bissoli" />
+        <meta property="article:tag" content="microestrutura" />
+        <meta property="article:tag" content="stablecoins" />
+        <meta property="article:tag" content="tick-size" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={currentSeo.title} />
+        <meta name="twitter:description" content={currentSeo.description} />
+        <meta name="twitter:image" content="https://guibissoli.com/images/article-tick-size-hero.png" />
+        <meta name="author" content="Guilherme Bissoli" />
+        <link rel="canonical" href="https://guibissoli.com/writings/tick-size-microestrutura" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": currentSeo.title,
+            "description": currentSeo.description,
+            "image": "https://guibissoli.com/images/article-tick-size-hero.png",
+            "datePublished": "2026-01-02",
+            "dateModified": "2026-01-02",
+            "author": {
+              "@type": "Person",
+              "name": "Guilherme Bissoli",
+              "url": "https://guibissoli.com/about",
+              "jobTitle": "Managing Partner",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Coins.xyz Brasil"
+              }
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Guilherme Bissoli",
+              "url": "https://guibissoli.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://guibissoli.com/writings/tick-size-microestrutura"
+            },
+            "keywords": currentSeo.keywords,
+            "articleSection": "Finance",
+            "inLanguage": lang === 'pt' ? 'pt-BR' : lang === 'zh' ? 'zh-CN' : 'en-US'
+          })}
+        </script>
+      </Helmet>
       <Navigation />
       
       {/* Hero Section - NYT Style */}

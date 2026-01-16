@@ -4,6 +4,7 @@
  * Static data for MVP - can be upgraded to API later
  */
 
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { ExternalLink, Wallet, TrendingUp, Image as ImageIcon } from 'lucide-react';
 import Navigation from '@/components/Navigation';
@@ -83,6 +84,27 @@ const stats = {
 
 export default function Collections() {
   const { language } = useLanguage();
+
+  // SEO meta content by language
+  const seoContent = {
+    pt: {
+      title: 'Coleções NFT | Guilherme Bissoli - Portfólio Web3',
+      description: 'Portfólio de NFTs de Guilherme Bissoli no Ethereum. Coleções incluem 0N1 Force, Bloot, ENS e mais. Colecionando desde 2022.',
+      keywords: 'NFT, coleções NFT, Ethereum, OpenSea, 0N1 Force, Bloot, ENS, Web3, Guilherme Bissoli, portfólio cripto',
+    },
+    en: {
+      title: 'NFT Collections | Guilherme Bissoli - Web3 Portfolio',
+      description: 'Guilherme Bissoli\'s NFT portfolio on Ethereum. Collections include 0N1 Force, Bloot, ENS and more. Collecting since 2022.',
+      keywords: 'NFT, NFT collections, Ethereum, OpenSea, 0N1 Force, Bloot, ENS, Web3, Guilherme Bissoli, crypto portfolio',
+    },
+    zh: {
+      title: 'NFT收藏 | Guilherme Bissoli - Web3投资组合',
+      description: 'Guilherme Bissoli在以太坊上的NFT投资组合。收藏包括0N1 Force、Bloot、ENS等。自2022年开始收藏。',
+      keywords: 'NFT, NFT收藏, 以太坊, OpenSea, 0N1 Force, Bloot, ENS, Web3, Guilherme Bissoli, 加密投资组合',
+    },
+  };
+
+  const currentSeo = seoContent[language] || seoContent.en;
   
   const t = {
     title: language === 'pt' ? 'Coleções' : 'Collections',
@@ -101,6 +123,21 @@ export default function Collections() {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
+      <Helmet>
+        <title>{currentSeo.title}</title>
+        <meta name="description" content={currentSeo.description} />
+        <meta name="keywords" content={currentSeo.keywords} />
+        <meta property="og:title" content={currentSeo.title} />
+        <meta property="og:description" content={currentSeo.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://guibissoli.com/collections" />
+        <meta property="og:image" content="https://guibissoli.com/images/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={currentSeo.title} />
+        <meta name="twitter:description" content={currentSeo.description} />
+        <meta name="author" content="Guilherme Bissoli" />
+        <link rel="canonical" href="https://guibissoli.com/collections" />
+      </Helmet>
       <Navigation />
       
       <main className="pt-24 pb-20">

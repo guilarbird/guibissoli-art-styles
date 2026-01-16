@@ -4,6 +4,7 @@
  * Trilingual support (EN/PT/ZH)
  */
 
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink, Mail, Users, Zap } from 'lucide-react';
@@ -12,10 +13,47 @@ import FeaturedCarousel from '@/components/FeaturedCarousel';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  // SEO meta content by language
+  const seoContent = {
+    pt: {
+      title: 'Guilherme Bissoli | Web3, Stablecoins & Infraestrutura Financeira',
+      description: 'Especialista em Web3, stablecoins, FX, trading e regulação financeira. Construindo infraestrutura cripto para o Sul Global. Managing Partner @ Coins.xyz Brasil.',
+      keywords: 'Guilherme Bissoli, Web3, stablecoins, criptomoedas, blockchain, infraestrutura financeira, Sul Global, Brasil, Coins.xyz, FX digital, regulação cripto, Banco Central',
+    },
+    en: {
+      title: 'Guilherme Bissoli | Web3, Stablecoins & Financial Infrastructure',
+      description: 'Specialist in Web3, stablecoins, FX, trading and financial regulation. Building crypto infrastructure for the Global South. Managing Partner @ Coins.xyz Brazil.',
+      keywords: 'Guilherme Bissoli, Web3, stablecoins, cryptocurrency, blockchain, financial infrastructure, Global South, Brazil, Coins.xyz, digital FX, crypto regulation, Central Bank',
+    },
+    zh: {
+      title: 'Guilherme Bissoli | Web3、稳定币与金融基础设施',
+      description: 'Web3、稳定币、外汇、交易和金融监管专家。为全球南方构建加密基础设施。Coins.xyz巴西管理合伙人。',
+      keywords: 'Guilherme Bissoli, Web3, 稳定币, 加密货币, 区块链, 金融基础设施, 全球南方, 巴西, Coins.xyz, 数字外汇, 加密监管, 中央银行',
+    },
+  };
+
+  const currentSeo = seoContent[language] || seoContent.en;
 
   return (
     <div className="min-h-screen bg-background text-foreground font-body">
+      <Helmet>
+        <title>{currentSeo.title}</title>
+        <meta name="description" content={currentSeo.description} />
+        <meta name="keywords" content={currentSeo.keywords} />
+        <meta property="og:title" content={currentSeo.title} />
+        <meta property="og:description" content={currentSeo.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://guibissoli.com" />
+        <meta property="og:image" content="https://guibissoli.com/images/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={currentSeo.title} />
+        <meta name="twitter:description" content={currentSeo.description} />
+        <meta name="twitter:image" content="https://guibissoli.com/images/og-image.png" />
+        <meta name="author" content="Guilherme Bissoli" />
+        <link rel="canonical" href="https://guibissoli.com" />
+      </Helmet>
       <Navigation />
       
       {/* Hero Section */}

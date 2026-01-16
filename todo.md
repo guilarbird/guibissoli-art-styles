@@ -75,3 +75,8 @@
 - [x] Trocar branding "gui.dev" por guibissoli
 - [x] Corrigir imagem do artigo Microstructure que não está carregando
 - [x] Corrigir SEO da página /writings - adicionar palavras-chave e meta tags
+- [x] Adicionar SEO às páginas Home, About e Collections
+- [x] Adicionar SEO às páginas de artigos individuais (ArticleTickSize, ArticleMicrostructure)
+- [x] Criar sitemap.xml
+- [x] Criar robots.txt
+- [x] Implementar structured data JSON-LD para artigos
