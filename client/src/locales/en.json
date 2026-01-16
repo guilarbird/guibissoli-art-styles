@@ -1,0 +1,92 @@
+{
+  "common": {
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Try again",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "share": "Share",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "download": "Download"
+  },
+  "nav": {
+    "home": "Home",
+    "writings": "Writings",
+    "about": "About",
+    "contact": "Contact",
+    "resume": "Resume"
+  },
+  "writings": {
+    "title": "Writings",
+    "subtitle": "Thoughts on Web3, stablecoins, financial infrastructure, and building for the Global South.",
+    "searchPlaceholder": "Search articles...",
+    "allTags": "all tags",
+    "noResults": "No articles found",
+    "categories": {
+      "all": "all",
+      "articles": "articles",
+      "research": "research",
+      "media": "media"
+    },
+    "filters": {
+      "language": "Language",
+      "all": "all",
+      "pt": "PT",
+      "en": "EN"
+    },
+    "readTime": "min read",
+    "views": "views",
+    "featured": "Featured"
+  },
+  "article": {
+    "publishedOn": "Published on",
+    "readTime": "Read time",
+    "tags": "Tags",
+    "share": "Share",
+    "relatedArticles": "Related articles",
+    "nextArticle": "Next article",
+    "previousArticle": "Previous article",
+    "tableOfContents": "Table of contents",
+    "audio": {
+      "listen": "Listen to this article",
+      "player": "Audio Player",
+      "language": "Language",
+      "speed": "Speed",
+      "minimize": "minimize",
+      "browserTTS": "Using browser TTS. Premium voices available in production."
+    }
+  },
+  "home": {
+    "greeting": "Hi, I'm",
+    "role": "Developer & Writer",
+    "bio": "Building financial infrastructure for emerging markets.",
+    "featuredWritings": "Featured Writings",
+    "viewAllWritings": "view all writings",
+    "latestResearch": "Latest Research",
+    "recentMedia": "Recent Media"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "builtWith": "Built with"
+  },
+  "about": {
+    "title": "About",
+    "experience": "Experience",
+    "education": "Education",
+    "focus": "Current Focus",
+    "interests": "Research Interests",
+    "building": "Under construction",
+    "current": "Current"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "serverError": "Server error",
+    "goHome": "Go home"
+  }
+}
