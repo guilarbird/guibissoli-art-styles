@@ -80,3 +80,8 @@
 - [x] Criar sitemap.xml
 - [x] Criar robots.txt
 - [x] Implementar structured data JSON-LD para artigos
+
+- [x] Artigo 1: Resoluções 519-521 BC - O que muda em fevereiro 2026
+- [x] Artigo 2: Order Book e Liquidez - Como avaliar profundidade de mercado
+- [x] Artigo 3: Market Makers Cripto - Como funciona a provisão de liquidez
+- [x] Artigo 4: Pagamentos Cross-Border com Stablecoins - O caso LatAm
