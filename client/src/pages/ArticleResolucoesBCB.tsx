@@ -341,7 +341,7 @@ export default function ArticleResolucoesBCB() {
             className="mb-12"
           >
             <img 
-              src="/images/art-styles/data_viz/data_viz_1.png"
+              src="/images/styles/abstract_finance/style_abstract_finance_001.png"
               alt={content.title[lang]}
               className="w-full rounded-lg"
             />

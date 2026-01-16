@@ -330,7 +330,7 @@ export default function ArticleOrderBook() {
             className="mb-12"
           >
             <img 
-              src="/images/art-styles/data_viz/data_viz_2.png"
+              src="/images/styles/data_viz/style_data_viz_002.png"
               alt={content.title[lang]}
               className="w-full rounded-lg"
             />

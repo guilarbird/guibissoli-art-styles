@@ -32,7 +32,7 @@ export const articles: Article[] = [
     slug: 'cross-border-stablecoins-latam',
     title: 'Pagamentos Cross-Border com Stablecoins: O Caso LatAm',
     excerpt: 'Como as stablecoins estão transformando remessas e pagamentos internacionais na América Latina, com volume de 156 bilhões de dólares em 2023.',
-    date: '2026.01.20',
+    date: '2026.01.16',
     readTime: '11 min',
     tags: ['stablecoins', 'cross-border', 'remessas', 'latam', 'pagamentos', 'fintech'],
     language: 'pt',
@@ -40,13 +40,13 @@ export const articles: Article[] = [
     featured: true,
     url: '/writings/cross-border-stablecoins-latam',
     publication: 'guibissoli',
-    heroImage: '/images/art-styles/data_viz/data_viz_4.png'
+    heroImage: '/images/styles/data_viz/style_data_viz_004.png'
   },
   {
     slug: 'market-makers-cripto',
     title: 'Market Makers Cripto: Como Funciona a Provisão de Liquidez',
     excerpt: 'O papel dos agentes que constroem e mantêm a liquidez em mercados de criptoativos, desde market making tradicional até AMMs.',
-    date: '2026.01.19',
+    date: '2026.01.16',
     readTime: '10 min',
     tags: ['market-makers', 'liquidez', 'amm', 'defi', 'trading', 'exchanges'],
     language: 'pt',
@@ -54,13 +54,13 @@ export const articles: Article[] = [
     featured: true,
     url: '/writings/market-makers-cripto',
     publication: 'guibissoli',
-    heroImage: '/images/art-styles/data_viz/data_viz_3.png'
+    heroImage: '/images/styles/data_viz/style_data_viz_003.png'
   },
   {
     slug: 'order-book-liquidez',
     title: 'Order Book e Liquidez: Como Avaliar Profundidade de Mercado',
     excerpt: 'Por que o spread de tela é insuficiente e como analisar a geometria completa do livro de ordens para execução eficiente.',
-    date: '2026.01.18',
+    date: '2026.01.16',
     readTime: '9 min',
     tags: ['order-book', 'liquidez', 'slippage', 'trading', 'microestrutura'],
     language: 'pt',
@@ -68,13 +68,13 @@ export const articles: Article[] = [
     featured: true,
     url: '/writings/order-book-liquidez',
     publication: 'guibissoli',
-    heroImage: '/images/art-styles/data_viz/data_viz_2.png'
+    heroImage: '/images/styles/data_viz/style_data_viz_002.png'
   },
   {
     slug: 'resolucoes-bcb-519-520-521',
     title: 'Resoluções BCB 519, 520 e 521: O Novo Marco dos Ativos Virtuais',
     excerpt: 'O que muda com a regulamentação que entra em vigor em fevereiro de 2026. Análise completa das novas regras para prestadores de serviços de ativos virtuais no Brasil.',
-    date: '2026.01.17',
+    date: '2026.01.16',
     readTime: '10 min',
     tags: ['regulação', 'banco-central', 'stablecoins', 'vasp', 'compliance', 'brasil'],
     language: 'pt',
@@ -82,7 +82,7 @@ export const articles: Article[] = [
     featured: true,
     url: '/writings/resolucoes-bcb-519-520-521',
     publication: 'guibissoli',
-    heroImage: '/images/art-styles/data_viz/data_viz_1.png'
+    heroImage: '/images/styles/abstract_finance/style_abstract_finance_001.png'
   },
   {
     slug: 'microstructure-fx-digital',

@@ -85,3 +85,10 @@
 - [x] Artigo 2: Order Book e Liquidez - Como avaliar profundidade de mercado
 - [x] Artigo 3: Market Makers Cripto - Como funciona a provisão de liquidez
 - [x] Artigo 4: Pagamentos Cross-Border com Stablecoins - O caso LatAm
+
+## Auditoria Completa - 2026.01.16
+- [x] Corrigir datas dos artigos novos (usar data real de hoje: 2026.01.16)
+- [x] Corrigir thumbnails/imagens quebradas em todos os artigos
+- [x] Ajustar arte que não se encaixa corretamente (imagens data_viz carregando)
+- [ ] Clonar projeto para GitHub (guilarbird/guibissoli-art-styles)
+- [ ] Configurar controle de versão com PR e comentários

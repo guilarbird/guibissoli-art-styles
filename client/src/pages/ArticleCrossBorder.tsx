@@ -318,7 +318,7 @@ export default function ArticleCrossBorder() {
             className="mb-12"
           >
             <img 
-              src="/images/art-styles/data_viz/data_viz_4.png"
+              src="/images/styles/data_viz/style_data_viz_004.png"
               alt={content.title[lang]}
               className="w-full rounded-lg"
             />

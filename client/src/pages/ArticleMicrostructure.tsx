@@ -208,7 +208,7 @@ export default function ArticleMicrostructure() {
         <meta property="og:description" content={currentSeo.description} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="https://guibissoli.com/writings/microstructure-fx-digital" />
-        <meta property="og:image" content="https://guibissoli.com/images/art-styles/data_viz/data_viz_1.png" />
+        <meta property="og:image" content="https://guibissoli.xyz/images/styles/data_viz/style_data_viz_001.png" />
         <meta property="article:published_time" content="2026-01-15" />
         <meta property="article:author" content="Guilherme Bissoli" />
         <meta property="article:tag" content="microestrutura" />
@@ -217,7 +217,7 @@ export default function ArticleMicrostructure() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={currentSeo.title} />
         <meta name="twitter:description" content={currentSeo.description} />
-        <meta name="twitter:image" content="https://guibissoli.com/images/art-styles/data_viz/data_viz_1.png" />
+        <meta name="twitter:image" content="https://guibissoli.xyz/images/styles/data_viz/style_data_viz_001.png" />
         <meta name="author" content="Guilherme Bissoli" />
         <link rel="canonical" href="https://guibissoli.com/writings/microstructure-fx-digital" />
         <script type="application/ld+json">
@@ -226,7 +226,7 @@ export default function ArticleMicrostructure() {
             "@type": "Article",
             "headline": currentSeo.title,
             "description": currentSeo.description,
-            "image": "https://guibissoli.com/images/art-styles/data_viz/data_viz_1.png",
+            "image": "https://guibissoli.xyz/images/styles/data_viz/style_data_viz_001.png",
             "datePublished": "2026-01-15",
             "dateModified": "2026-01-15",
             "author": {
@@ -262,7 +262,7 @@ export default function ArticleMicrostructure() {
         <div 
           className="absolute inset-0 opacity-40"
           style={{
-            backgroundImage: 'url(/images/art-styles/data_viz/data_viz_01.png)',
+            backgroundImage: 'url(/images/styles/data_viz/style_data_viz_001.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
